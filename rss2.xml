@@ -8,8 +8,67 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>做海贼王的油腻男人</description>
-    <pubDate>Sun, 04 Mar 2018 08:17:11 GMT</pubDate>
+    <pubDate>Sat, 17 Mar 2018 11:52:25 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>java bean</title>
+      <link>http://yoursite.com/2018/03/17/java-bean/</link>
+      <guid>http://yoursite.com/2018/03/17/java-bean/</guid>
+      <pubDate>Sat, 17 Mar 2018 11:28:11 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&amp;emsp;&amp;emsp;在这里我想聊一个java最基础的java bean的理解。&lt;br&gt;&amp;emsp;&amp;emsp;作为一个java程序员，java bean有get set仿佛是天经地义的。我也是这样认为的。然而经过高人提点，我们仿佛忽略了一个问题，我们一直在使用orm框架，其实set get是orm框架所必须的。其实我们可以看jdk源码，我们能看到jdk的java bean里全有get set吗？明显不是，反而用的多的也是被我们经常忽略的构造函数。&lt;br&gt;&amp;emsp;&amp;emsp;java bean应该有行为吗？答案是肯定的，java是面向对象的语言，java bean的行为正是其面向对象语言的最主要的特征。好的，让我们这里回想下，我们写的程序。我们的系统一般会分为以下三层，在这里我们把每一个层级对应的java bean都以不同对的名字分类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;表现层-VO&lt;/li&gt;
+&lt;li&gt;业务层-BO&lt;/li&gt;
+&lt;li&gt;持久层-DO&lt;/li&gt;
+&lt;/ol&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>&emsp;&emsp;在这里我想聊一个java最基础的java bean的理解。<br>&emsp;&emsp;作为一个java程序员，java bean有get set仿佛是天经地义的。我也是这样认为的。然而经过高人提点，我们仿佛忽略了一个问题，我们一直在使用orm框架，其实set get是orm框架所必须的。其实我们可以看jdk源码，我们能看到jdk的java bean里全有get set吗？明显不是，反而用的多的也是被我们经常忽略的构造函数。<br>&emsp;&emsp;java bean应该有行为吗？答案是肯定的，java是面向对象的语言，java bean的行为正是其面向对象语言的最主要的特征。好的，让我们这里回想下，我们写的程序。我们的系统一般会分为以下三层，在这里我们把每一个层级对应的java bean都以不同对的名字分类：</p><ol><li>表现层-VO</li><li>业务层-BO</li><li>持久层-DO</li></ol><a id="more"></a><p>持久层就是对应的数据库的层级（Dao），里面会有对应数据库的DO。可以想想，我们一般是不会在DO中声明方法的。但是在业务层和表现层中，其实是有一些业务行为的，比如说数据库中存的是以“分”为单位的数字，但是表现成要以元为显示。我猜测啊，大多数程序员会和我一样，把这个方法写一个util或者private方法调用转换。但是我们如果好好思考下，这个行为其实是java bean本身的，放在java bean中更合适。<br>&emsp;&emsp;在这里我只是提出，我们要考虑行为或者逻辑本身应该属于谁，并不是一棒打死的认为逻辑都应该放在java bean当中。思考最重要。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/03/17/java-bean/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>TDD</title>
+      <link>http://yoursite.com/2018/03/17/TDD/</link>
+      <guid>http://yoursite.com/2018/03/17/TDD/</guid>
+      <pubDate>Sat, 17 Mar 2018 10:56:11 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&amp;emsp;&amp;emsp;最近在学习TDD，说实话对于TDD的应用我还是抱有一定的观望态度的。我先简单介绍下TDD的过程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;创建一个test&lt;/li&gt;
+&lt;li&gt;让test可以运行&lt;/li&gt;
+&lt;li&gt;重构可以运行的代码  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是做为一个身陷囹圄的码农，我做的最多的是业务系统（讲的通俗一点就是CRUD）。如果我要按照TDD来开发的话，我需要经历什么呢？先写test。光是这里我就觉得很别扭了，我的目标其实很明确，就是写一个insert表的接口，表有对应的数据字段。这里接口的操作和数据模型非常简单明确，我完全可以先写接口，然后用test来验证接口。&lt;br&gt;&amp;emsp;&amp;emsp;仿佛到了这里已经偏离TDD了，TDD本身的意思是”测试驱动开发“，跟我的方式是由本质区别的。想到这里，我也就明白了，对于简单的业务系统来说，TDD可能并不是太适用。但是对于算法或者比较复杂的业务的时候，可能就比较适用了。我们的架构师在这里对我们的测试题目有了一个不错的分&lt;br&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>&emsp;&emsp;最近在学习TDD，说实话对于TDD的应用我还是抱有一定的观望态度的。我先简单介绍下TDD的过程：</p><ol><li>创建一个test</li><li>让test可以运行</li><li>重构可以运行的代码  </li></ol><p>但是做为一个身陷囹圄的码农，我做的最多的是业务系统（讲的通俗一点就是CRUD）。如果我要按照TDD来开发的话，我需要经历什么呢？先写test。光是这里我就觉得很别扭了，我的目标其实很明确，就是写一个insert表的接口，表有对应的数据字段。这里接口的操作和数据模型非常简单明确，我完全可以先写接口，然后用test来验证接口。<br>&emsp;&emsp;仿佛到了这里已经偏离TDD了，TDD本身的意思是”测试驱动开发“，跟我的方式是由本质区别的。想到这里，我也就明白了，对于简单的业务系统来说，TDD可能并不是太适用。但是对于算法或者比较复杂的业务的时候，可能就比较适用了。我们的架构师在这里对我们的测试题目有了一个不错的分<br><a id="more"></a><br>析，当我们在考虑比较复杂的算法和业务的时候，我们往往不太知道自己该如何下手，仿佛要考虑的地方非常多，怎么入手感觉也不是十分合适（可能这时我们脑子里就把设计模式过了一遍）。其实这个时候就非常适合TDD了，它以最简单的方式入手，不断的是完善，最终给了我们一个不错的设计。<br>&emsp;&emsp;这里就带来一个问题，你觉得好的架构是一开始就设计出来的吗？架构师如此问我们。其实都是慢慢演化而来的，而往往这种演化而来的架构才是最经得起考验的。我们的设计也是一样，如果在一开始我们就各种考虑去应用各种设计模式，反而会过度设计带来反面效果。而如果按照TDD的方式开发，可以防止我们过度设计，我觉得这正是TDD最可贵的地方。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/03/17/TDD/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>关于接口的设计</title>
+      <link>http://yoursite.com/2018/03/17/work-summary2/</link>
+      <guid>http://yoursite.com/2018/03/17/work-summary2/</guid>
+      <pubDate>Sat, 17 Mar 2018 09:39:11 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&amp;emsp;&amp;emsp;这些天我们正在准备重新规划商户的接口，同事们出了一版设计，但是遭到了我们老大的否定，但是我本身也是比较赞同同事的设计的。矛盾点是在这里：&lt;br&gt;&amp;emsp;&amp;emsp;我认为，我们作为提供基础数据服务的部门，因为我们基本是最上游系统，所以我认为我们这边应该尽量少的包含业务，尽量使我们的接口更好的通用化，至于下游系统怎么使用我们的数据做它自己的业务，我觉得我们并不太需要去关心。这里我们只拿一个接口我说明，&lt;code&gt;Vender getVender(String code, int type)&lt;/code&gt;&lt;br&gt;比如说type有两种，1代表供应商、2代表联营商，按照我上面所说的理由接口设计出来应该是这样的。&lt;br&gt;&amp;emsp;&amp;emsp;我们老大认为，作为服务的提供方（server）首先应该站在调用方（client）去考虑，绝大多数的下游系统只是存储一个code信息，他自己一般是知道自己是什么类型的商户，所以他如果使用这个接口就必须传一个1或者2，这个对于客户端来说就不是很友好。这样这个判断类型的逻辑就分散到了各个调用&lt;br&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>&emsp;&emsp;这些天我们正在准备重新规划商户的接口，同事们出了一版设计，但是遭到了我们老大的否定，但是我本身也是比较赞同同事的设计的。矛盾点是在这里：<br>&emsp;&emsp;我认为，我们作为提供基础数据服务的部门，因为我们基本是最上游系统，所以我认为我们这边应该尽量少的包含业务，尽量使我们的接口更好的通用化，至于下游系统怎么使用我们的数据做它自己的业务，我觉得我们并不太需要去关心。这里我们只拿一个接口我说明，<code>Vender getVender(String code, int type)</code><br>比如说type有两种，1代表供应商、2代表联营商，按照我上面所说的理由接口设计出来应该是这样的。<br>&emsp;&emsp;我们老大认为，作为服务的提供方（server）首先应该站在调用方（client）去考虑，绝大多数的下游系统只是存储一个code信息，他自己一般是知道自己是什么类型的商户，所以他如果使用这个接口就必须传一个1或者2，这个对于客户端来说就不是很友好。这样这个判断类型的逻辑就分散到了各个调用<br><a id="more"></a><br>端，如果以后有了任何的业务变化，比如说判断什么类型的逻辑不是根据这个type了，需要多个if判断才能确定，而这个时候作为服务端的我们如何去推动调用端去改动就太困难了，尤其是身在一个大公司内。到这里我们可以去考虑一个问题，这段逻辑是不是属于我们服务端本身？？其实我们略加思考就可以考虑到，这段逻辑其实是属于服务端本身的，发放到下游确实有些不合适。所以我们重新规划了我们接口的设计:<code>Supplier getSupplier(String code); Associates getAssociates(String code);</code><br>&emsp;&emsp;在这里我们多少几句，其实每一个原则都是辩证来看的，多个原则在一起必然会有矛盾，就比如上面，那是不是我们提供出去的接口都要个性化呢？当然不是，如果所有的都个性化，那我们的接口就会爆炸。我们一定要思考，这个接口的个性化是不是符合我们大的业务框架？站在对方的角度思考下。<br>&emsp;&emsp;如果人生没有了思考，那我们比咸鱼差不了多少。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/03/17/work-summary2/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>关于接口对接</title>
@@ -44,57 +103,6 @@
       <content:encoded><![CDATA[<p>&emsp;&emsp;在一个大型公司当中，对项目的最最主要的要求就是稳定，任何的改动尽可能的是其影响的范围缩小到最小。改动其实是难免的，只要有需求的任何变化，项目或多或少都会有改动。maven作为一个项目的管理工具，他使用model来实现分层，理想的情况下每个模块内部的类只影响到自己个module本身。例如我们的项目，原则上至少会分成以下几个module，dao、biz、rpc、service、api。<br>&emsp;&emsp;假设我们我们的业务中有一个student表，所以我们dao module会有一个StudentEntity的pojo，如果严格按照原则的话，那我们至少有三个pojo（service是api的一个实现算一个）来表达这个student业务，需要做至少两次convert才最终到service提供出去服务（暂时不包括rpc module），这样才做到了控制影响范围。但是这样带来的一个后果就是，我们的每个module里都会有大量的convert代码，然而其实绝大多数每个module 的pojo之间差别是很小的，甚至是没有任何差别的。所以我们一般做项目的时候都会做一些权衡，有一些东西是可以贯穿整个项目的，比如说自定义的BusinessException、一些constants、一些enum。但是项目module之间的依赖是顺序传递的，如下图:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+---------+     +-----+     +-----+</span><br><span class="line">| service | --&gt; | biz | --&gt; | dao |</span><br><span class="line">+---------+     +-----+     +-----+</span><br><span class="line">  |               |</span><br><span class="line">  |               |</span><br><span class="line">  v               v</span><br><span class="line">+---------+     +-----+</span><br><span class="line">|   api   |     | rpc |</span><br><span class="line">+---------+     +-----+</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>我们如何做到使最外层的依赖，让里层获取到呢？例如，api 里面的StudentTypeEnum如何让biz使用呢？<br>&emsp;&emsp;在这里我们定下来回想一下，我们分层的目的是什么？是为了，当我们有任何改动的时候只影响到本层内，不会扩散到其他层。所以我们的依赖是顺序的，里层引用不到和它隔层的类，但是如果我们打破这个顺序，这样每个module之间都可以相互引用，这样其实module也失去了存在的意义。但是我们的需求又是实际存在的，这好像是个矛盾的命题，貌似是不能兼顾双方的。<br>&emsp;&emsp;但maven给了我们解决方案，以往我们使用maven管理jar的时候，只是应用到版本号，但其实在版本号下面还有classifier的分级，同一个版本号但是classifier不同其jar包的内容也是不同的。所以我们如果要解决这个问题，就需要将api打包成两个不同的classifier给其引用，例如classifier分别为all和model，service可以引用all的，biz给其引用model的，这样既防止了biz层的乱用，又使其可以不用写大量重复的convert代码，不过至于哪些类应该给里层使用，这个应该考虑好，也不要过度放开。下面是一些打包的代码，可以借鉴：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;all&lt;/id&gt;</span><br><span class="line">                        &lt;goals&gt;&lt;goal&gt;jar&lt;/goal&gt;&lt;/goals&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;classifier&gt;all&lt;/classifier&gt;</span><br><span class="line">                            &lt;includes&gt;</span><br><span class="line">                                &lt;include&gt;**&lt;/include&gt;</span><br><span class="line">                            &lt;/includes&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;model&lt;/id&gt;</span><br><span class="line">                        &lt;goals&gt;&lt;goal&gt;jar&lt;/goal&gt;&lt;/goals&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;classifier&gt;model&lt;/classifier&gt;</span><br><span class="line">                            &lt;includes&gt;</span><br><span class="line">                                &lt;include&gt;**/apply/soa/api/exceptions/**&lt;/include&gt;</span><br><span class="line">                                &lt;include&gt;**/apply/soa/api/service/**/exceptions/**&lt;/include&gt;</span><br><span class="line">                                &lt;include&gt;**/common/**&lt;/include&gt;</span><br><span class="line">                            &lt;/includes&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br></pre></td></tr></table></figure></p>]]></content:encoded>
       
       <comments>http://yoursite.com/2018/02/09/maven-classifier/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>parameter-passing</title>
-      <link>http://yoursite.com/2018/01/21/parameter-passing/</link>
-      <guid>http://yoursite.com/2018/01/21/parameter-passing/</guid>
-      <pubDate>Sun, 21 Jan 2018 12:56:37 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&amp;emsp;&amp;emsp;今天看《冒号学堂》的时候，看到里面又提到了关于设计语言的传值方式的问题，我记得大概一两年前我就写过类似的东西，里面也讨论了java的传值方式的问题。时至今日，再次看到这个问题的时候，又有了一些别的理解。&lt;br&gt;&amp;emsp;&amp;emsp;现在java8已经比较流行了，其中最大的亮点大概就是支持了函数式编程，lambda以及function。这就让我们联想到，究竟什么是函数式编程？如果说java8才支持函数式编程，那java8以前算是什么编程呢？不要着急，以下是我的一些个人理解，在这里写下来。&lt;br&gt;&amp;emsp;&amp;emsp;函数大概大家都知道是什么，其实所谓函数式编程就是要大家像编写函数一样去编程。函数的特点是什么呢？最最重要的就是无副作用。什么叫无副作用呢？就像我们写的数学函数一样，我们的输入一定，输出肯定是一样的！比方说我们定义了一个新的运算规则函数，输入两个自然数，输出一个自然数。比方说输入1和9，会输出11，现实当中会由于我多次调用这个函数，然后我输入1和9，输入就变成了12吗？绝对不会！说来也算惭愧，其实我们经常写的代码就会有这种类似的问题。java是在2014年才正式支持这个特性。java8之前也算是铁杆的命令式编程语言吧，但是现在随着硬件水平的提高，命令式编程语言的优点不是那么明显了，相反函数式编程更加适合这个多核高并发的时代，所以最为流行语言的佼佼者，java也不得不跟随时代的潮流，支持函数式编程的特性。&lt;br&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>&emsp;&emsp;今天看《冒号学堂》的时候，看到里面又提到了关于设计语言的传值方式的问题，我记得大概一两年前我就写过类似的东西，里面也讨论了java的传值方式的问题。时至今日，再次看到这个问题的时候，又有了一些别的理解。<br>&emsp;&emsp;现在java8已经比较流行了，其中最大的亮点大概就是支持了函数式编程，lambda以及function。这就让我们联想到，究竟什么是函数式编程？如果说java8才支持函数式编程，那java8以前算是什么编程呢？不要着急，以下是我的一些个人理解，在这里写下来。<br>&emsp;&emsp;函数大概大家都知道是什么，其实所谓函数式编程就是要大家像编写函数一样去编程。函数的特点是什么呢？最最重要的就是无副作用。什么叫无副作用呢？就像我们写的数学函数一样，我们的输入一定，输出肯定是一样的！比方说我们定义了一个新的运算规则函数，输入两个自然数，输出一个自然数。比方说输入1和9，会输出11，现实当中会由于我多次调用这个函数，然后我输入1和9，输入就变成了12吗？绝对不会！说来也算惭愧，其实我们经常写的代码就会有这种类似的问题。java是在2014年才正式支持这个特性。java8之前也算是铁杆的命令式编程语言吧，但是现在随着硬件水平的提高，命令式编程语言的优点不是那么明显了，相反函数式编程更加适合这个多核高并发的时代，所以最为流行语言的佼佼者，java也不得不跟随时代的潮流，支持函数式编程的特性。<br><a id="more"></a><br>&emsp;&emsp;说了这多，跟文章的开头貌似已经偏离了，但是真正的才在这里。众所周知，java传递参数的方式是“值传递”，所谓值传递就是copy一份参数的值传给方法。网上有无数的文章说明了：如果参数是基本变量，无论方法内如何对这个变量赋值，是不能修改这个变量的值的；如果是引用变量，倒是可以修改引用对应实体的参数的值。java是如何实现的，以及内部是怎么处理的，咱们不在这里讨论（这里有一片不错的文章<a href="http://blog.csdn.net/javazejian/article/details/51192130" target="_blank" rel="noopener">http://blog.csdn.net/javazejian/article/details/51192130</a>大家可以去这里看）。我这里想说的是，java为什么这样设计呢？改变入参会有什么问题吗？细心的人已经看出来了，就如同我上面对函数式编程做的铺垫一样，java其实也是想规避程序员写出的代码出现上述情况，所以这个算不算java在设计之初就借鉴了函数式编程的思想呢？或者本来没有什么命令式和函数式之分，语言的发展演变就是这样的呢？5年以后的java还会和命令式有多少联系呢？</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/01/21/parameter-passing/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>修复面子工程</title>
-      <link>http://yoursite.com/2018/01/01/enchance-blog/</link>
-      <guid>http://yoursite.com/2018/01/01/enchance-blog/</guid>
-      <pubDate>Mon, 01 Jan 2018 05:48:32 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;p&gt;&amp;emsp;&amp;emsp;做出来的blog满怀欣喜的给别人看，然而居然被说“太难看”。excuse me？做为一个尤其看重内在的人，但更为看重外表的人，怎么能被其他人说难看呢？果断找修复面子的方案。&lt;br&gt;&amp;emsp;&amp;emsp;看到网上的推荐next主题得分最高，所以果断选
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>&emsp;&emsp;做出来的blog满怀欣喜的给别人看，然而居然被说“太难看”。excuse me？做为一个尤其看重内在的人，但更为看重外表的人，怎么能被其他人说难看呢？果断找修复面子的方案。<br>&emsp;&emsp;看到网上的推荐next主题得分最高，所以果断选择了next主题，按照文档修复了一波。并且也借此机会了解了一些常识，比如tags、categories的运用，比如分页的运用，还比如rss的小知识点。这个是不错的使用next的小知识点，对于初学者很实用：<a href="https://www.jianshu.com/p/5d5931289c09" target="_blank" rel="noopener">link</a>。<br>&emsp;&emsp;anyway，最后真的好看很多，很欣慰元旦这天没白忙。黑白永远不会过时。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/01/01/enchance-blog/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>白杨blog的开端文章</title>
-      <link>http://yoursite.com/2017/12/27/hello-new-blog/</link>
-      <guid>http://yoursite.com/2017/12/27/hello-new-blog/</guid>
-      <pubDate>Tue, 26 Dec 2017 16:00:00 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&amp;emsp;&amp;emsp;想做个人博客已经很久了，最近的这种想法尤其的强烈，所以动手做了这个自己的个人博客。下面说一下我做这个的历程。&lt;br&gt;&amp;emsp;&amp;emsp;最开始以前就听说过github支持免费的host服务，所以开始寻找github的支持，很容易找到了github pages的支持。按照官方给出的教程，五分钟时间搞定了首个github pages的“hello world”，然后后面看到了github pages的搭建blog的官方推荐“jekyll”。很高兴能有官方推荐的技术，这样能节省一大部分找对应技术方案的时间，而且能少走弯路，毕竟我还是信任github的（微笑脸）。&lt;br&gt;&amp;emsp;&amp;emsp;其实我对前端的认识还保留在jquery（最近了解了vue）的时代，我认为我好多的工作还是需要写页面的，例如部个局或者写个css样式啥的，所以我果断的安装了我认为非常流行的前端idea webstorm，然而并没有如我所愿，自从安装之后并没有使用过（微笑脸）。然后开始了我的jekyll之旅，对于一个使用windows的用户（而且使用的windows7）来说，对于任何官方文档只提供了linux和mac的技术来说是很痛苦的。找了大量的文章并且尝试了几次安装之后，总归是把jekyll以及需要的ruby环境安装好了。对照着jekyll的官方文档，也写出了一个post demo，直到现在也开始对这种技术有了一些了解，就是把markdown编写的内容动态渲染成html页面展示，只需要少许的配置，因为有默认的主题也不需要关心页面布局什么的，还真的是非常方便的。&lt;br&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>&emsp;&emsp;想做个人博客已经很久了，最近的这种想法尤其的强烈，所以动手做了这个自己的个人博客。下面说一下我做这个的历程。<br>&emsp;&emsp;最开始以前就听说过github支持免费的host服务，所以开始寻找github的支持，很容易找到了github pages的支持。按照官方给出的教程，五分钟时间搞定了首个github pages的“hello world”，然后后面看到了github pages的搭建blog的官方推荐“jekyll”。很高兴能有官方推荐的技术，这样能节省一大部分找对应技术方案的时间，而且能少走弯路，毕竟我还是信任github的（微笑脸）。<br>&emsp;&emsp;其实我对前端的认识还保留在jquery（最近了解了vue）的时代，我认为我好多的工作还是需要写页面的，例如部个局或者写个css样式啥的，所以我果断的安装了我认为非常流行的前端idea webstorm，然而并没有如我所愿，自从安装之后并没有使用过（微笑脸）。然后开始了我的jekyll之旅，对于一个使用windows的用户（而且使用的windows7）来说，对于任何官方文档只提供了linux和mac的技术来说是很痛苦的。找了大量的文章并且尝试了几次安装之后，总归是把jekyll以及需要的ruby环境安装好了。对照着jekyll的官方文档，也写出了一个post demo，直到现在也开始对这种技术有了一些了解，就是把markdown编写的内容动态渲染成html页面展示，只需要少许的配置，因为有默认的主题也不需要关心页面布局什么的，还真的是非常方便的。<br><a id="more"></a><br>&emsp;&emsp;我也记不清了找什么关于jekyll的文章，搜索到了类似“jekyll和hexo”的文章，作为一个有学习欲望的小白，虽然和我要找的内容不相关，我还是点击了进去。然而这也开启了，真正的主角hexo的上场。文章里大概讲的就是以下几点：1.jekyll的编译相比hexo很慢 2.jekyll的环境很复杂 3.jekyll的主题很难看。所以作为一个有好奇心的青年，还是去验证一下网上说的事实（在这时候，其实jekyll还是给了我一些视野的，我没想到blog居然还能这样写）。安装了node.js，环境安装完毕，果然环境简单。做出一个demo来看，默认的主题果然比jekyll好看些（个人观点哈哈哈）。至于编译速度没有太大感觉，毕竟我也只做了demo。以下说一下我的个人观点，jekyll依赖于ruby环境，而ruby作为一个后端语言，前端并不是其擅长的，而node.js大家都清楚的哈虽然也是后端语言。<br>&emsp;&emsp;然后我就用hexo搭建了这个blog，虽然还有很多的地方不太会用。例如tag的使用。还有对这个的思考，如果以后blog文章很多的话，那会不会把所有的文章都列举在首页，那首页是不是就会很长？不管如何，我的个人blog今天算是迈出了第一步。哦对了，今天晚上去参加了我们7fresh第一个店铺的开业仪式，很多好吃的，然后现在出完回来补完了这个博客。那个谁谁谁也曾说，好的开端是成功的一半，那是不是我已经成功了一半啦啦啦。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2017/12/27/hello-new-blog/#disqus_thread</comments>
     </item>
     
   </channel>
