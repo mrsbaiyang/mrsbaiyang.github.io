@@ -8,8 +8,32 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>做海贼王的油腻男人</description>
-    <pubDate>Fri, 13 Apr 2018 14:20:05 GMT</pubDate>
+    <pubDate>Sun, 15 Apr 2018 09:06:34 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>闭包的理解</title>
+      <link>http://yoursite.com/2018/04/15/2018-4/closure/</link>
+      <guid>http://yoursite.com/2018/04/15/2018-4/closure/</guid>
+      <pubDate>Sun, 15 Apr 2018 08:53:11 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&amp;emsp;&amp;emsp;今天被小伙伴问到了闭包，虽然自己原来也看到一些关于闭包的文章，但是发现自己什么都说不出，所以又到了学习的时刻了。&lt;br&gt;&amp;emsp;&amp;emsp;首先先去百科了下闭包的概念：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;闭包就是能够读取其他函数内部变量的函数。由于在javascript中，只有函数内部的子函数才能读取局部变量，所以闭包可以理解成“定义在一个函数内部的函数“。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;咱们将这段话拆分一下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;能到读取到其他函数内部变量的函数。&lt;br&gt;首先闭包也是一个“函数”，然后才是有“能够读取到其他函数变量”的功能。&lt;/li&gt;
+&lt;li&gt;javascript中理解成“定义在一个函数内部的函数”&lt;/li&gt;
+&lt;li&gt;将函数内部和外部连接起来的桥梁&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;将话分成了三部分，果然理解起来就容易多了。我在网上也找到了很多介绍闭包的文章，例如&lt;a href=&quot;http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html&lt;/a&gt;，但无奈本人是java程序员理解起来还是不够清晰，所以还是谢了自己的java理解版本，如下：&lt;br&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>&emsp;&emsp;今天被小伙伴问到了闭包，虽然自己原来也看到一些关于闭包的文章，但是发现自己什么都说不出，所以又到了学习的时刻了。<br>&emsp;&emsp;首先先去百科了下闭包的概念：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">闭包就是能够读取其他函数内部变量的函数。由于在javascript中，只有函数内部的子函数才能读取局部变量，所以闭包可以理解成“定义在一个函数内部的函数“。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。</span><br></pre></td></tr></table></figure></p><p>咱们将这段话拆分一下：</p><ol><li>能到读取到其他函数内部变量的函数。<br>首先闭包也是一个“函数”，然后才是有“能够读取到其他函数变量”的功能。</li><li>javascript中理解成“定义在一个函数内部的函数”</li><li>将函数内部和外部连接起来的桥梁</li></ol><hr><p>将话分成了三部分，果然理解起来就容易多了。我在网上也找到了很多介绍闭包的文章，例如<a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html</a>，但无奈本人是java程序员理解起来还是不够清晰，所以还是谢了自己的java理解版本，如下：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">package com.xstore.tms.center.web;</span><br><span class="line"></span><br><span class="line">import java.util.function.Function;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author yang.bai on 2017/12/10.</span><br><span class="line"> */</span><br><span class="line">public class Test1 &#123;</span><br><span class="line"></span><br><span class="line">    class Obj1&#123;</span><br><span class="line">        String str = &quot;123&quot;;</span><br><span class="line"></span><br><span class="line">        public String getStr() &#123;</span><br><span class="line">            return str;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void setStr(String str) &#123;</span><br><span class="line">            this.str = str;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public String toString() &#123;</span><br><span class="line">            return &quot;Obj1&#123;&quot; +</span><br><span class="line">                    &quot;str=&apos;&quot; + str + &apos;\&apos;&apos; +</span><br><span class="line">                    &apos;&#125;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Function&lt;Integer, Integer&gt; functionA = null;</span><br><span class="line"></span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        Obj1 b = new Obj1();</span><br><span class="line">        System.out.println(b);</span><br><span class="line">        functionA = (Integer a) -&gt;&#123;</span><br><span class="line">            b.setStr(&quot;456&quot;);</span><br><span class="line">            System.out.println(b);</span><br><span class="line">            return a++;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Test1 test1 = new Test1();</span><br><span class="line">        test1.test1();</span><br><span class="line">        test1.functionA.apply(3);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>首先在我们分子这个demo之前我们先思考一个问题：<strong>如果我想在函数A里面访问函数B的局部变量我该如何做到呢？？？</strong>其实我们经常做这种事情，只不过我们不知道它叫闭包罢了。<br>然后让我们来分析这个demo：<br>这个demo里有两个函数，main函数和test1函数，test1函数里面内部函数functionA，functionA访问了局部变量b（我们这里甚至做到了修改）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void test1()&#123;</span><br><span class="line">       Obj1 b = new Obj1();</span><br><span class="line">       System.out.println(b);</span><br><span class="line">       functionA = (Integer a) -&gt;&#123;</span><br><span class="line">           b.setStr(&quot;456&quot;);</span><br><span class="line">           System.out.println(b);</span><br><span class="line">           return a++;</span><br><span class="line">       &#125;;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p><p>所以，按照闭包概念理解的话，functionA就是闭包，起到了连接函数内部和函数外部的作用。回想下，在一个方法体内的匿名函数里访问（甚至修改）函数外部的变量，是不是经常做呢？只不过我们不知道其实这个匿名函数就叫闭包罢了。<br>我们一开始理解闭包的时候，总是容易被“闭包”这两个字带偏，容易联想到其他关于这两个字的想象，我觉得只需要记住一点就好了。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/04/15/2018-4/closure/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>初识区块链</title>
@@ -85,28 +109,6 @@
       <content:encoded><![CDATA[<p>&emsp;&emsp;在这里我想聊一个java最基础的java bean的理解。<br>&emsp;&emsp;作为一个java程序员，java bean有get set仿佛是天经地义的。我也是这样认为的。然而经过高人提点，我们仿佛忽略了一个问题，我们一直在使用orm框架，其实set get是orm框架所必须的。其实我们可以看jdk源码，我们能看到jdk的java bean里全有get set吗？明显不是，反而用的多的也是被我们经常忽略的构造函数。<br>&emsp;&emsp;java bean应该有行为吗？答案是肯定的，java是面向对象的语言，java bean的行为正是其面向对象语言的最主要的特征。好的，让我们这里回想下，我们写的程序。我们的系统一般会分为以下三层，在这里我们把每一个层级对应的java bean都以不同对的名字分类：</p><ol><li>表现层-VO</li><li>业务层-BO</li><li>持久层-DO</li></ol><a id="more"></a><p>持久层就是对应的数据库的层级（Dao），里面会有对应数据库的DO。可以想想，我们一般是不会在DO中声明方法的。但是在业务层和表现层中，其实是有一些业务行为的，比如说数据库中存的是以“分”为单位的数字，但是表现成要以元为显示。我猜测啊，大多数程序员会和我一样，把这个方法写一个util或者private方法调用转换。但是我们如果好好思考下，这个行为其实是java bean本身的，放在java bean中更合适。<br>&emsp;&emsp;在这里我只是提出，我们要考虑行为或者逻辑本身应该属于谁，并不是一棒打死的认为逻辑都应该放在java bean当中。思考最重要。</p>]]></content:encoded>
       
       <comments>http://yoursite.com/2018/03/17/java-bean/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>TDD</title>
-      <link>http://yoursite.com/2018/03/17/TDD/</link>
-      <guid>http://yoursite.com/2018/03/17/TDD/</guid>
-      <pubDate>Sat, 17 Mar 2018 10:56:11 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&amp;emsp;&amp;emsp;最近在学习TDD，说实话对于TDD的应用我还是抱有一定的观望态度的。我先简单介绍下TDD的过程：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;创建一个test&lt;/li&gt;
-&lt;li&gt;让test可以运行&lt;/li&gt;
-&lt;li&gt;重构可以运行的代码  &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;但是做为一个身陷囹圄的码农，我做的最多的是业务系统（讲的通俗一点就是CRUD）。如果我要按照TDD来开发的话，我需要经历什么呢？先写test。光是这里我就觉得很别扭了，我的目标其实很明确，就是写一个insert表的接口，表有对应的数据字段。这里接口的操作和数据模型非常简单明确，我完全可以先写接口，然后用test来验证接口。&lt;br&gt;&amp;emsp;&amp;emsp;仿佛到了这里已经偏离TDD了，TDD本身的意思是”测试驱动开发“，跟我的方式是由本质区别的。想到这里，我也就明白了，对于简单的业务系统来说，TDD可能并不是太适用。但是对于算法或者比较复杂的业务的时候，可能就比较适用了。我们的架构师在这里对我们的测试题目有了一个不错的分&lt;br&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>&emsp;&emsp;最近在学习TDD，说实话对于TDD的应用我还是抱有一定的观望态度的。我先简单介绍下TDD的过程：</p><ol><li>创建一个test</li><li>让test可以运行</li><li>重构可以运行的代码  </li></ol><p>但是做为一个身陷囹圄的码农，我做的最多的是业务系统（讲的通俗一点就是CRUD）。如果我要按照TDD来开发的话，我需要经历什么呢？先写test。光是这里我就觉得很别扭了，我的目标其实很明确，就是写一个insert表的接口，表有对应的数据字段。这里接口的操作和数据模型非常简单明确，我完全可以先写接口，然后用test来验证接口。<br>&emsp;&emsp;仿佛到了这里已经偏离TDD了，TDD本身的意思是”测试驱动开发“，跟我的方式是由本质区别的。想到这里，我也就明白了，对于简单的业务系统来说，TDD可能并不是太适用。但是对于算法或者比较复杂的业务的时候，可能就比较适用了。我们的架构师在这里对我们的测试题目有了一个不错的分<br><a id="more"></a><br>析，当我们在考虑比较复杂的算法和业务的时候，我们往往不太知道自己该如何下手，仿佛要考虑的地方非常多，怎么入手感觉也不是十分合适（可能这时我们脑子里就把设计模式过了一遍）。其实这个时候就非常适合TDD了，它以最简单的方式入手，不断的是完善，最终给了我们一个不错的设计。<br>&emsp;&emsp;这里就带来一个问题，你觉得好的架构是一开始就设计出来的吗？架构师如此问我们。其实都是慢慢演化而来的，而往往这种演化而来的架构才是最经得起考验的。我们的设计也是一样，如果在一开始我们就各种考虑去应用各种设计模式，反而会过度设计带来反面效果。而如果按照TDD的方式开发，可以防止我们过度设计，我觉得这正是TDD最可贵的地方。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/03/17/TDD/#disqus_thread</comments>
     </item>
     
   </channel>
