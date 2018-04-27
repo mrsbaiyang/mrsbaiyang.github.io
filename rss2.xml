@@ -8,8 +8,27 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>做海贼王的油腻男人</description>
-    <pubDate>Sun, 15 Apr 2018 09:06:34 GMT</pubDate>
+    <pubDate>Fri, 27 Apr 2018 03:24:02 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>docker学习笔记</title>
+      <link>http://yoursite.com/2018/04/27/2018-4/docker-learn/</link>
+      <guid>http://yoursite.com/2018/04/27/2018-4/docker-learn/</guid>
+      <pubDate>Fri, 27 Apr 2018 03:23:11 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;docker image ls  //列出本地镜像&lt;br&gt;docker image rm ${image id} //删除本地镜像&lt;br&gt;docker build -t tomcat .  //. 表示Dockerfile在当前文件夹下，也可使用绝对路径（/path/to/
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>docker image ls  //列出本地镜像<br>docker image rm ${image id} //删除本地镜像<br>docker build -t tomcat .  //. 表示Dockerfile在当前文件夹下，也可使用绝对路径（/path/to/Dockerfile）来表示<br>docker run –name mytomcat -i -t -d tomcat:latest  //使用镜像启动docker容器<br>docker run -i -t -d -p ${host port}:${container port} –name mytomcat tomcat:latest  //docker端口映射<br>//docker是运行在linux环境之上的，所以在windows下使用是运行在虚拟机上的，这里的host（宿主）只的是vm<br>${host ip}:${host port} //访问docker里运行的tomcat<br>docker restart ${container name} //重启容器<br>docker attach ${container id} //<br>docker ps // 查看所有正在运行容器<br>docker stop containerId // containerId 是容器的ID</p><p>docker ps -a // 查看所有容器<br>docker ps -a -q // 查看所有容器ID</p><p>docker stop $(docker ps -a -q) //  stop停止所有容器<br>docker  rm $(docker ps -a -q) //   remove删除所有容器</p><p>docker inspect ${container id}  //获取容器/镜像的元数据<br>docker inspect ${container id} | grep IPAddress  //查看元数据，过滤ip</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2018/04/27/2018-4/docker-learn/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>闭包的理解</title>
@@ -88,27 +107,6 @@
       <content:encoded><![CDATA[<p>&emsp;&emsp;前端时间和斌哥吃饭，我就斌哥他们做游戏用的是什么通信协议，斌哥说他们用的是websocket。关于websocket的名字我也是听说过的，但也只是了解到了它是http之上的协议，也没有做过深入的理解。这两天闲下来写，所以就查找了websocket了的资料。<br>&emsp;&emsp;既然提到了websocket，http就不能绕过去的。websocket的出现就是为了弥补http的不足。我们都知道一个事实，http协议只能由客户端发起，就是说服务器不能主动向客户端发起请求。但是websocket就是一个<strong>全双工</strong>协议，允许服务器主动发送信息给客户端。websocket本身是html5规范的一部分，就是来解决服务器给浏览器发消息的问题（原来只能依靠不断的轮询服务器才能做到的事情），但websocket也不局限于浏览器的使用，任何实现了websocket协议的客户端和服务端都可以用此通信。那么websocket到底和http有啥关系呢？websocket和http都是从tcp之上演化而来的，对于websocket来说，它依赖了http协议进行一次握手（关于为啥非得用http握手我就不太清楚了，可能是最先html5的规范并且肯定要在浏览器使用的原因吧），握手成功后，数据就从tcp通道传输，与http无关了。<br>&emsp;&emsp;下面我们来聊一聊http，http的历史发展我就不再多说了，网上很多资料写的很清楚，<br><a id="more"></a><a href="http://www.360doc.com/content/16/0816/07/30578693_583526011.shtml" title="http的前世今生" target="_blank" rel="noopener">http://www.360doc.com/content/16/0816/07/30578693_583526011.shtml</a>。这里聊聊我的一些困惑。首先现在最最流行的肯定就是http2了，而http2有很多优秀的特性，像服务端推送、header压缩、二进制格式、多路复用等。其他的特性还很容易理解，这里我最困惑的是<strong>多路复用</strong>，因为我知道http1.1就已经有了keep-alive属性，本身已经做到了不是每次都去创建http连接，而是复用上次的连接，而tcp本身的特性也决定了，只能在一次请求完成以后才能进行下一次请求，这也才有了“<strong>head of line blocking</strong>”问题，在我的理解当中，除非tcp本身解决此问题，否则在其之上的更不可能解决的吧？？<br>&emsp;&emsp;在查找资料的过程中，我也了解到了不少知识，http1.1本身也曾试着解决“head of line blocking”问题，所以提出了http piplelining解决方案，但可能其本身提出的并不是和合理，所以各大浏览器厂商支持并不好<a href="http://www.cnblogs.com/gzchenjiajun-php/articles/4992795.html" target="_blank" rel="noopener">http://www.cnblogs.com/gzchenjiajun-php/articles/4992795.html</a>。这更让我想知道http2是如何解决的呢？方式很简单，将消息分解为更小的独立部分（stream）并通过连接发送。其实tcp本身的特性是没变的，只不过是将消息分解成多份，每部分之间不会相互阻塞，原来发送一个大的请求阻塞的其他请求的情况大大减少。requset stream和response stream是在一个tcp连接上交织在一起的，多个stream构成一个完整的request或者response，但是服务器或者浏览器只能处理完整的请求或者响应，不可能处理一部分的，所以还有另一个事情需要浏览器和服务器去做，那就是将stream重新组装，发送给浏览器渲染或者server的handler处理。以下是我的对于http2对request和response处理的理解：<img src="https://i.imgur.com/ZzO0cGi.png" alt="requset、response分解组装"><br><strong><em>特别注意：以上的请求是发生在一个tcp连接上的，以及request的stream和response的stream都是交织的，在这里是想展示分解、组装的过程。</em></strong><br>&emsp;&emsp;这里我提出一点我的疑问，这个分解组装的过程应该也是增大了客户端和服务端的工作量了吧，但可能是这点消耗对于好处来说是无关紧要的吧。以上是我对于http2以及websocket的理解，不对的话欢迎指教。</p>]]></content:encoded>
       
       <comments>http://yoursite.com/2018/03/23/http/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>java bean</title>
-      <link>http://yoursite.com/2018/03/17/java-bean/</link>
-      <guid>http://yoursite.com/2018/03/17/java-bean/</guid>
-      <pubDate>Sat, 17 Mar 2018 11:28:11 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&amp;emsp;&amp;emsp;在这里我想聊一个java最基础的java bean的理解。&lt;br&gt;&amp;emsp;&amp;emsp;作为一个java程序员，java bean有get set仿佛是天经地义的。我也是这样认为的。然而经过高人提点，我们仿佛忽略了一个问题，我们一直在使用orm框架，其实set get是orm框架所必须的。其实我们可以看jdk源码，我们能看到jdk的java bean里全有get set吗？明显不是，反而用的多的也是被我们经常忽略的构造函数。&lt;br&gt;&amp;emsp;&amp;emsp;java bean应该有行为吗？答案是肯定的，java是面向对象的语言，java bean的行为正是其面向对象语言的最主要的特征。好的，让我们这里回想下，我们写的程序。我们的系统一般会分为以下三层，在这里我们把每一个层级对应的java bean都以不同对的名字分类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;表现层-VO&lt;/li&gt;
-&lt;li&gt;业务层-BO&lt;/li&gt;
-&lt;li&gt;持久层-DO&lt;/li&gt;
-&lt;/ol&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>&emsp;&emsp;在这里我想聊一个java最基础的java bean的理解。<br>&emsp;&emsp;作为一个java程序员，java bean有get set仿佛是天经地义的。我也是这样认为的。然而经过高人提点，我们仿佛忽略了一个问题，我们一直在使用orm框架，其实set get是orm框架所必须的。其实我们可以看jdk源码，我们能看到jdk的java bean里全有get set吗？明显不是，反而用的多的也是被我们经常忽略的构造函数。<br>&emsp;&emsp;java bean应该有行为吗？答案是肯定的，java是面向对象的语言，java bean的行为正是其面向对象语言的最主要的特征。好的，让我们这里回想下，我们写的程序。我们的系统一般会分为以下三层，在这里我们把每一个层级对应的java bean都以不同对的名字分类：</p><ol><li>表现层-VO</li><li>业务层-BO</li><li>持久层-DO</li></ol><a id="more"></a><p>持久层就是对应的数据库的层级（Dao），里面会有对应数据库的DO。可以想想，我们一般是不会在DO中声明方法的。但是在业务层和表现层中，其实是有一些业务行为的，比如说数据库中存的是以“分”为单位的数字，但是表现成要以元为显示。我猜测啊，大多数程序员会和我一样，把这个方法写一个util或者private方法调用转换。但是我们如果好好思考下，这个行为其实是java bean本身的，放在java bean中更合适。<br>&emsp;&emsp;在这里我只是提出，我们要考虑行为或者逻辑本身应该属于谁，并不是一棒打死的认为逻辑都应该放在java bean当中。思考最重要。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/03/17/java-bean/#disqus_thread</comments>
     </item>
     
   </channel>
