@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java map," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="永远的万事屋" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。   ##HashMap下面是居于JDK7的，JDK8的红黑树结构暂时放弃。   数据结构HashMap继承了AbstractMap、实现了Map public class HashMap&amp;lt;K,V&amp;gt; extends AbstractMap&amp;lt;K,V&amp;gt; implements Map&amp;lt;">
+<meta name="keywords" content="java map">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap的小认识">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/2019-9/HashMap的小认识/index.html">
+<meta property="og:site_name" content="永远的万事屋">
+<meta property="og:description" content="想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。   ##HashMap下面是居于JDK7的，JDK8的红黑树结构暂时放弃。   数据结构HashMap继承了AbstractMap、实现了Map public class HashMap&amp;lt;K,V&amp;gt; extends AbstractMap&amp;lt;K,V&amp;gt; implements Map&amp;lt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4843132-3d5e78f87bb64216.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4843132-91b165309b5d447c.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4843132-3830a9227f7df10f.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4843132-7abca1abd714341d.png">
+<meta property="og:updated_time" content="2019-09-25T12:05:12.835Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HashMap的小认识">
+<meta name="twitter:description" content="想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。   ##HashMap下面是居于JDK7的，JDK8的红黑树结构暂时放弃。   数据结构HashMap继承了AbstractMap、实现了Map public class HashMap&amp;lt;K,V&amp;gt; extends AbstractMap&amp;lt;K,V&amp;gt; implements Map&amp;lt;">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/2019-9/HashMap的小认识/"/>
+
+
+
+
+
+  <title>HashMap的小认识 | 永远的万事屋</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">永远的万事屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">锈在一起的三角铁</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/2019-9/HashMap的小认识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HashMap的小认识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T18:21:36+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。  </p>
+<p>##HashMap<br>下面是居于JDK7的，JDK8的红黑树结构暂时放弃。  </p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>HashMap继承了AbstractMap、实现了Map</p>
+<pre><code>public class HashMap&lt;K,V&gt;
+extends AbstractMap&lt;K,V&gt;
+implements Map&lt;K,V&gt;, Cloneable, Serializable
+{
+/**
+ * The table, resized as necessary. Length MUST Always be a power of two.
+ */
+transient Entry&lt;K,V&gt;[] table;
+</code></pre><p>重要的是数组table以及它的内部类Entry。  </p>
+<pre><code>static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    final K key;
+    V value;
+    Entry&lt;K,V&gt; next;
+    int hash;
+</code></pre><p>可以看到Entry里有一个next属性，所以它本身就是个单链表，以下就是我们常说的数组+链表的结构：  </p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png" alt=""></p>
+<a id="more"></a>
+<h3 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h3><p>代码还是很简单的，稍微一看都能清楚：  </p>
+<pre><code>public V put(K key, V value) {
+       // 对key为null的处理
+       if (key == null)
+           return putForNullKey(value);
+       // 根据key算出hash值
+       int hash = hash(key);
+       // 根据hash值和HashMap容量算出在table中应该存储的下标i
+       int i = indexFor(hash, table.length);
+       for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {
+           Object k;
+           // 先判断hash值是否一样，如果一样，再判断key是否一样
+           if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {
+               V oldValue = e.value;
+               e.value = value;
+               e.recordAccess(this);
+               return oldValue;
+           }
+       }
+
+       modCount++;
+       addEntry(hash, key, value, i);
+       return null;
+   }
+</code></pre><p>整理出来的流程图如下：<br><img src="https://upload-images.jianshu.io/upload_images/4843132-3d5e78f87bb64216.png" alt=""><br>值得注意点的地方是：   </p>
+<pre><code>static int indexFor(int h, int length) {
+    return h &amp; (length-1);
+}
+</code></pre><p>可以看到是用&amp;的位运算，&amp;运算是CPU的运算方式，所以效率是杠杠的，至于为什么是跟length-1进行&amp;的位运呢？<br>因为length为2的幂次方，即一定是偶数，偶数减1，即是奇数，这样保证了（length-1）在二进制中最低位是1，而&amp;运算结果的最低位是1还是0完全取决于hash值二进制的最低位。如果length为奇数，则length-1则为偶数，则length-1二进制的最低位横为0，则&amp;位运算的结果最低位横为0，即横为偶数。这样table数组就只可能在偶数下标的位置存储了数据，浪费了所有奇数下标的位置，这样也更容易产生hash冲突。<strong>这也是HashMap的容量为什么总是2的平方数的原因。</strong><br><img src="https://upload-images.jianshu.io/upload_images/4843132-91b165309b5d447c.png" alt=""></p>
+<h3 id="resize、get"><a href="#resize、get" class="headerlink" title="resize、get"></a>resize、get</h3><p>这个的流程和put类似，都是先计算hash值以及对应的index下表，然后重新赋值或者获取元素，这里就不在啰嗦。</p>
+<h3 id="iterate"><a href="#iterate" class="headerlink" title="iterate"></a>iterate</h3><p>这里我了解下，为什么map的遍历不是有序的，以及它是如何做的。<br>核心代码如下：  </p>
+<pre><code>final Entry&lt;K,V&gt; nextEntry() {
+    // 保存下一个需要返回的Entry，作为返回结果
+    Entry&lt;K,V&gt; e = next;
+    // 如果遍历到table上单向链表的最后一个元素时
+    if ((next = e.next) == null) {
+        Entry[] t = table;
+        // 继续往下寻找table上有元素的下标
+        // 并且把下一个talbe上有单向链表的表头，作为下一个返回的Entry next
+        while (index &lt; t.length &amp;&amp; (next = t[index++]) == null)
+            ;
+    }
+    current = e;
+    return e;
+}
+</code></pre><p>nextEntry的主要作用有两点</p>
+<ol>
+<li>把当前遍历到的Entry返回</li>
+<li>准备好下一个需要返回的Entry  </li>
+</ol>
+<p>如果当前返回的Entry不是单向链表的最后一个元素，那只要让下一个返回的Entrynext为当前Entry的next属性（下图红色过程）；如果当前返回的Entry是单向链表的最后一个元素，那么它就没有next属性了，所以要寻找下一个table上有单向链表的表头（下图绿色过程）<br><img src="https://upload-images.jianshu.io/upload_images/4843132-3830a9227f7df10f.png" alt="">  </p>
+<p>##LinkedHashMap<br>LinkedHashMap是在HashMap的基础上又维护了Entry之间的一个双向链表，其结构如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/4843132-7abca1abd714341d.png" alt="">  </p>
+<pre><code>private static class Entry&lt;K,V&gt; extends HashMap.Entry&lt;K,V&gt; {
+    // These fields comprise the doubly linked list used for iteration.
+    Entry&lt;K,V&gt; before, after;
+
+    Entry(int hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) {
+        super(hash, key, value, next);
+    }
+</code></pre><p>可以到相比HashMap.Entry，LinkedHashMap.Entry多了before和after，这就是用来维护双向链表的。</p>
+<h3 id="put方法-1"><a href="#put方法-1" class="headerlink" title="put方法"></a>put方法</h3><p>新加入的元素维护到双向链表的末尾，代码如下：  </p>
+<pre><code>private void addBefore(Entry&lt;K,V&gt; existingEntry) {
+    after  = existingEntry;
+    before = existingEntry.before;
+    before.after = this;
+    after.before = this;
+}
+</code></pre><h3 id="iterate-1"><a href="#iterate-1" class="headerlink" title="iterate"></a>iterate</h3><p>从双向链表表头的第一个元素开始，遍历效率是大于HashMap的。</p>
+<h3 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h3><p>LinkedHashMap有一个比较特殊的构造函数：  </p>
+<pre><code>public LinkedHashMap(int initialCapacity,
+                     float loadFactor,
+                     boolean accessOrder) {
+    super(initialCapacity, loadFactor);
+    this.accessOrder = accessOrder;
+}
+</code></pre><p>accessOrder默认为false，标识元素顺序与插入顺序相关；如果为true，标识元素顺序与访问顺序相关。能做到这点，就是因为在accessOrder=true的情况下，每一次访问都会将元素重新排序：  </p>
+<pre><code>void recordAccess(HashMap&lt;K,V&gt; m) {
+    LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;
+    // 如果LinkedHashMap的accessOrder为true，则进行重排序
+    // 比如前面提到LruCache中使用到的LinkedHashMap的accessOrder属性就为true
+    if (lm.accessOrder) {
+        lm.modCount++;
+        // 把更新的Entry从双向链表中移除
+        remove();
+        // 再把更新的Entry加入到双向链表的表尾
+        addBefore(lm.header);
+    }
+}
+</code></pre><p>其实到这里我就比较好奇了，根据插入顺序的HashMap还有一些场景，但是每次读顺序都会改变的HashMap有哪些使用场景呢？</p>
+<!-- more -->
+<h2 id="LinkedHashMap与LRU"><a href="#LinkedHashMap与LRU" class="headerlink" title="LinkedHashMap与LRU"></a>LinkedHashMap与LRU</h2><p>每次访问的元素都会被放置在队列末尾，这和LRU（Least Recently Used最近最少算法）算法的特性是一致的。所以我们利用这个特性，能很轻易实现LRU-1算法，事实上java本身也给我们留好了实现的接口：  </p>
+<pre><code>protected boolean removeEldestEntry(Map.Entry&lt;K,V&gt; eldest) {
+    return false;
+}
+</code></pre><p>我们只要覆盖这个方法就是一个线程不安全的LRU了。<br>LRU本身是内存淘汰算法，关于这个请听下回分解。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果感到快乐，你就拍拍手。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="baiyang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="baiyang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-map/" rel="tag"># java map</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/11/2019-4/parallelStream null/" rel="next" title="parallelStream注意点">
+                <i class="fa fa-chevron-left"></i> parallelStream注意点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjg0OS85NDEw"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="baiyang" />
+          <p class="site-author-name" itemprop="name">baiyang</p>
+           
+              <p class="site-description motion-element" itemprop="description">做海贼王的油腻男人</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mrsbaiyang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put方法"><span class="nav-number">2.</span> <span class="nav-text">put方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize、get"><span class="nav-number">3.</span> <span class="nav-text">resize、get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterate"><span class="nav-number">4.</span> <span class="nav-text">iterate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put方法-1"><span class="nav-number">5.</span> <span class="nav-text">put方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterate-1"><span class="nav-number">6.</span> <span class="nav-text">iterate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序"><span class="nav-number">7.</span> <span class="nav-text">重排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashMap与LRU"><span class="nav-number"></span> <span class="nav-text">LinkedHashMap与LRU</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">baiyang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

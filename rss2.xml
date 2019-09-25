@@ -8,8 +8,84 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>做海贼王的油腻男人</description>
-    <pubDate>Wed, 09 Jan 2019 09:26:08 GMT</pubDate>
+    <pubDate>Wed, 25 Sep 2019 12:05:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>HashMap的小认识</title>
+      <link>http://yoursite.com/2019/09/23/2019-9/HashMap%E7%9A%84%E5%B0%8F%E8%AE%A4%E8%AF%86/</link>
+      <guid>http://yoursite.com/2019/09/23/2019-9/HashMap%E7%9A%84%E5%B0%8F%E8%AE%A4%E8%AF%86/</guid>
+      <pubDate>Mon, 23 Sep 2019 10:21:36 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。  &lt;/p&gt;
+&lt;p&gt;##HashMap&lt;br&gt;下面是居于JDK7的，JDK8的红黑树结构暂时放弃。  &lt;/p&gt;
+&lt;h3 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h3&gt;&lt;p&gt;HashMap继承了AbstractMap、实现了Map&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class HashMap&amp;lt;K,V&amp;gt;
+extends AbstractMap&amp;lt;K,V&amp;gt;
+implements Map&amp;lt;K,V&amp;gt;, Cloneable, Serializable
+{
+/**
+ * The table, resized as necessary. Length MUST Always be a power of two.
+ */
+transient Entry&amp;lt;K,V&amp;gt;[] table;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重要的是数组table以及它的内部类Entry。  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;static class Entry&amp;lt;K,V&amp;gt; implements Map.Entry&amp;lt;K,V&amp;gt; {
+    final K key;
+    V value;
+    Entry&amp;lt;K,V&amp;gt; next;
+    int hash;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以看到Entry里有一个next属性，所以它本身就是个单链表，以下就是我们常说的数组+链表的结构：  &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。  </p><p>##HashMap<br>下面是居于JDK7的，JDK8的红黑树结构暂时放弃。  </p><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>HashMap继承了AbstractMap、实现了Map</p><pre><code>public class HashMap&lt;K,V&gt;extends AbstractMap&lt;K,V&gt;implements Map&lt;K,V&gt;, Cloneable, Serializable{/** * The table, resized as necessary. Length MUST Always be a power of two. */transient Entry&lt;K,V&gt;[] table;</code></pre><p>重要的是数组table以及它的内部类Entry。  </p><pre><code>static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {    final K key;    V value;    Entry&lt;K,V&gt; next;    int hash;</code></pre><p>可以看到Entry里有一个next属性，所以它本身就是个单链表，以下就是我们常说的数组+链表的结构：  </p><p><img src="https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png" alt=""></p><a id="more"></a><h3 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h3><p>代码还是很简单的，稍微一看都能清楚：  </p><pre><code>public V put(K key, V value) {       // 对key为null的处理       if (key == null)           return putForNullKey(value);       // 根据key算出hash值       int hash = hash(key);       // 根据hash值和HashMap容量算出在table中应该存储的下标i       int i = indexFor(hash, table.length);       for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {           Object k;           // 先判断hash值是否一样，如果一样，再判断key是否一样           if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {               V oldValue = e.value;               e.value = value;               e.recordAccess(this);               return oldValue;           }       }       modCount++;       addEntry(hash, key, value, i);       return null;   }</code></pre><p>整理出来的流程图如下：<br><img src="https://upload-images.jianshu.io/upload_images/4843132-3d5e78f87bb64216.png" alt=""><br>值得注意点的地方是：   </p><pre><code>static int indexFor(int h, int length) {    return h &amp; (length-1);}</code></pre><p>可以看到是用&amp;的位运算，&amp;运算是CPU的运算方式，所以效率是杠杠的，至于为什么是跟length-1进行&amp;的位运呢？<br>因为length为2的幂次方，即一定是偶数，偶数减1，即是奇数，这样保证了（length-1）在二进制中最低位是1，而&amp;运算结果的最低位是1还是0完全取决于hash值二进制的最低位。如果length为奇数，则length-1则为偶数，则length-1二进制的最低位横为0，则&amp;位运算的结果最低位横为0，即横为偶数。这样table数组就只可能在偶数下标的位置存储了数据，浪费了所有奇数下标的位置，这样也更容易产生hash冲突。<strong>这也是HashMap的容量为什么总是2的平方数的原因。</strong><br><img src="https://upload-images.jianshu.io/upload_images/4843132-91b165309b5d447c.png" alt=""></p><h3 id="resize、get"><a href="#resize、get" class="headerlink" title="resize、get"></a>resize、get</h3><p>这个的流程和put类似，都是先计算hash值以及对应的index下表，然后重新赋值或者获取元素，这里就不在啰嗦。</p><h3 id="iterate"><a href="#iterate" class="headerlink" title="iterate"></a>iterate</h3><p>这里我了解下，为什么map的遍历不是有序的，以及它是如何做的。<br>核心代码如下：  </p><pre><code>final Entry&lt;K,V&gt; nextEntry() {    // 保存下一个需要返回的Entry，作为返回结果    Entry&lt;K,V&gt; e = next;    // 如果遍历到table上单向链表的最后一个元素时    if ((next = e.next) == null) {        Entry[] t = table;        // 继续往下寻找table上有元素的下标        // 并且把下一个talbe上有单向链表的表头，作为下一个返回的Entry next        while (index &lt; t.length &amp;&amp; (next = t[index++]) == null)            ;    }    current = e;    return e;}</code></pre><p>nextEntry的主要作用有两点</p><ol><li>把当前遍历到的Entry返回</li><li>准备好下一个需要返回的Entry  </li></ol><p>如果当前返回的Entry不是单向链表的最后一个元素，那只要让下一个返回的Entrynext为当前Entry的next属性（下图红色过程）；如果当前返回的Entry是单向链表的最后一个元素，那么它就没有next属性了，所以要寻找下一个table上有单向链表的表头（下图绿色过程）<br><img src="https://upload-images.jianshu.io/upload_images/4843132-3830a9227f7df10f.png" alt="">  </p><p>##LinkedHashMap<br>LinkedHashMap是在HashMap的基础上又维护了Entry之间的一个双向链表，其结构如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/4843132-7abca1abd714341d.png" alt="">  </p><pre><code>private static class Entry&lt;K,V&gt; extends HashMap.Entry&lt;K,V&gt; {    // These fields comprise the doubly linked list used for iteration.    Entry&lt;K,V&gt; before, after;    Entry(int hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) {        super(hash, key, value, next);    }</code></pre><p>可以到相比HashMap.Entry，LinkedHashMap.Entry多了before和after，这就是用来维护双向链表的。</p><h3 id="put方法-1"><a href="#put方法-1" class="headerlink" title="put方法"></a>put方法</h3><p>新加入的元素维护到双向链表的末尾，代码如下：  </p><pre><code>private void addBefore(Entry&lt;K,V&gt; existingEntry) {    after  = existingEntry;    before = existingEntry.before;    before.after = this;    after.before = this;}</code></pre><h3 id="iterate-1"><a href="#iterate-1" class="headerlink" title="iterate"></a>iterate</h3><p>从双向链表表头的第一个元素开始，遍历效率是大于HashMap的。</p><h3 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h3><p>LinkedHashMap有一个比较特殊的构造函数：  </p><pre><code>public LinkedHashMap(int initialCapacity,                     float loadFactor,                     boolean accessOrder) {    super(initialCapacity, loadFactor);    this.accessOrder = accessOrder;}</code></pre><p>accessOrder默认为false，标识元素顺序与插入顺序相关；如果为true，标识元素顺序与访问顺序相关。能做到这点，就是因为在accessOrder=true的情况下，每一次访问都会将元素重新排序：  </p><pre><code>void recordAccess(HashMap&lt;K,V&gt; m) {    LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;    // 如果LinkedHashMap的accessOrder为true，则进行重排序    // 比如前面提到LruCache中使用到的LinkedHashMap的accessOrder属性就为true    if (lm.accessOrder) {        lm.modCount++;        // 把更新的Entry从双向链表中移除        remove();        // 再把更新的Entry加入到双向链表的表尾        addBefore(lm.header);    }}</code></pre><p>其实到这里我就比较好奇了，根据插入顺序的HashMap还有一些场景，但是每次读顺序都会改变的HashMap有哪些使用场景呢？</p><!-- more --><h2 id="LinkedHashMap与LRU"><a href="#LinkedHashMap与LRU" class="headerlink" title="LinkedHashMap与LRU"></a>LinkedHashMap与LRU</h2><p>每次访问的元素都会被放置在队列末尾，这和LRU（Least Recently Used最近最少算法）算法的特性是一致的。所以我们利用这个特性，能很轻易实现LRU-1算法，事实上java本身也给我们留好了实现的接口：  </p><pre><code>protected boolean removeEldestEntry(Map.Entry&lt;K,V&gt; eldest) {    return false;}</code></pre><p>我们只要覆盖这个方法就是一个线程不安全的LRU了。<br>LRU本身是内存淘汰算法，关于这个请听下回分解。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2019/09/23/2019-9/HashMap%E7%9A%84%E5%B0%8F%E8%AE%A4%E8%AF%86/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>parallelStream注意点</title>
+      <link>http://yoursite.com/2019/04/11/2019-4/parallelStream%20null/</link>
+      <guid>http://yoursite.com/2019/04/11/2019-4/parallelStream%20null/</guid>
+      <pubDate>Thu, 11 Apr 2019 09:22:36 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;刚刚的项目中发现了一个bug，是由于使用parallelStream导致，在此记录下。  &lt;/p&gt;
+&lt;h3 id=&quot;现象&quot;&gt;&lt;a href=&quot;#现象&quot; class=&quot;headerlink&quot; title=&quot;现象&quot;&gt;&lt;/a&gt;现象&lt;/h3&gt;&lt;p&gt;测试反馈，查询出来的数据不正确，有
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>刚刚的项目中发现了一个bug，是由于使用parallelStream导致，在此记录下。  </p><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>测试反馈，查询出来的数据不正确，有时候多一个有时候少一个。</p><h3 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h3><p>由此看来这肯定是一个比较让人困惑的问题，而能想到的这种随机性问题基本都和并发有关。所以我就想到了，我在一个循环rpc的中使用了parallelStream，如下所示：<br><img src="https://i.imgur.com/9tBLlMa.png" alt=""></p><h3 id="解惑答疑"><a href="#解惑答疑" class="headerlink" title="解惑答疑"></a>解惑答疑</h3><p>使用parallelStream只考虑到了ForkJoinPool最终会等待每个线程执行完毕，但是并没有考虑到线程安全问题，最终返回的结果就导致了list列表里出现了null。更深层次原因是由于ArrayList.add方法并不是线程安全的，如下所示：<br><img src="https://i.imgur.com/P8Vg2D5.png" alt=""><br>是先增加了容器大小，然后再赋值，这个操作并不是一个原子操作，导致了此问题。</p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2019/04/11/2019-4/parallelStream%20null/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>jvm的意义</title>
+      <link>http://yoursite.com/2019/01/29/2019-1/jvm%E7%9A%84%E5%B0%8F%E7%90%86%E8%A7%A3/</link>
+      <guid>http://yoursite.com/2019/01/29/2019-1/jvm%E7%9A%84%E5%B0%8F%E7%90%86%E8%A7%A3/</guid>
+      <pubDate>Tue, 29 Jan 2019 08:01:12 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;哈哈哈，请原谅我标题的假大空，其实我想说只有两点：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么会出现jvm这种技术以及jvm是如何发展到今天的？  &lt;/li&gt;
+&lt;li&gt;什么才是jvm当下最大的优势？  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在大约20多年前，当时主流的开发语言还是C，C语言由于其编译后直接运行在操作系统之上，被称为运行最快的语言。但这也带来了开发人员的苦恼，开发人员不得不去了解各个操作系统的差异性，来编写出适应于某个操作系统的代码。  &lt;/p&gt;
+&lt;p&gt;在1995年SunWorld大会上，首次提出“Write Once, Run Anywhere”的口号，而那时候windows95几个月后在正式发布，linix 1.0版也才发布一年，可以想象在那个时候挺具有的划时代意义的。时间回到现在，windows系统在服务器端越来走下坡路，而linux几乎是势不可挡（至少在互联网领域），在这种现状下，所谓的“Write Once, Run Anywhere”是否真的还是jvm的决对优势呢？其实我们简单思考下就可以了，想想我们在我们的司龄内是否有更换服务器环境的需求呢？  &lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>哈哈哈，请原谅我标题的假大空，其实我想说只有两点：  </p><ol><li>为什么会出现jvm这种技术以及jvm是如何发展到今天的？  </li><li>什么才是jvm当下最大的优势？  </li></ol><p>在大约20多年前，当时主流的开发语言还是C，C语言由于其编译后直接运行在操作系统之上，被称为运行最快的语言。但这也带来了开发人员的苦恼，开发人员不得不去了解各个操作系统的差异性，来编写出适应于某个操作系统的代码。  </p><p>在1995年SunWorld大会上，首次提出“Write Once, Run Anywhere”的口号，而那时候windows95几个月后在正式发布，linix 1.0版也才发布一年，可以想象在那个时候挺具有的划时代意义的。时间回到现在，windows系统在服务器端越来走下坡路，而linux几乎是势不可挡（至少在互联网领域），在这种现状下，所谓的“Write Once, Run Anywhere”是否真的还是jvm的决对优势呢？其实我们简单思考下就可以了，想想我们在我们的司龄内是否有更换服务器环境的需求呢？  </p><a id="more"></a><p>所以我们可能都被误导了，jvm能发展20年到今日还如此活跃，绝不仅仅因为其当时倡导的平台无关性的。我们思考下近些年比较火的一些语言，无论是php、python甚至kotlin、go，都有一个普遍的特点就是简单、易懂。我们视线回到jvm本身上，jvm本身的优势也是一样的。C语言开发者需要关心内存分配、对象回收甚至线程管理，而这些不正是jvm所做的事情吗？解放了程序员的生产力，程序员只需要关心其代码，和操作系统、内存打交道的事情都由jvm去处理了。再思考下我们现在所用的一些框架（例如spring），又进一步解放了程序员的生产力，程序员只需要关心业务逻辑了。  </p><p>有很多的人，总是唱衰现在的开发人员，尊崇老一辈的程序员，甚至还有了所谓的开发语言鄙视链，理由<br>无非是“不懂底层实现”等等。从个人的角度来说，现在的开发人员这方面确实相对比老一辈的人员懂的少一些，但现在的程序员所涉及到的知识储备可能也是原来比不了的。这个其实可能也归因于，我们的生产力的解放，然后才能把以精力投入到其他方面。从整个互联网的发展来说，这个无疑是进步的，人类的发展表现在工作的细分，从这个角度来说，我们可以说是进步了吧。(●’◡’●)  </p><p>说一下我的思考历程，最开始想到了java编译器，然后找到了jvm的解释器（原来了解到java其实是一门解释型语言），然后想到了平台无关性，然后思考平台无关性存在的意义，到此引发上文end。  </p><p>马上过年了，祝自己新年快乐。(●’◡’●)  </p>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2019/01/29/2019-1/jvm%E7%9A%84%E5%B0%8F%E7%90%86%E8%A7%A3/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>CAP的小理解</title>
@@ -54,67 +130,6 @@
       <content:encoded><![CDATA[<h3 id="锁级别"><a href="#锁级别" class="headerlink" title="锁级别"></a>锁级别</h3><ol><li>表级锁<br>表级锁的开销小，加锁快，不会出现死锁，锁定粒度大，大概率发生锁的冲突，并发度低。</li><li>行级锁<br>行级锁的开销大，加锁满，会出现死锁，锁定粒度小，小概率发生锁的重读，并发度高。</li><li>页级锁<br>支持页级锁的BDB引擎已经逐渐被InnoDB替代了，这里暂不讨论。  </li></ol><p>上述特点来看，很难说哪种锁更好，只能相对于所处的业务场景来选择更加适合的锁机制。如果仅从锁的角度来看，表级锁更适合以查询为主的应用场景，而行级锁则更适合于大量按索引条件并发更新少量数据的应用场景。</p><h3 id="锁模式"><a href="#锁模式" class="headerlink" title="锁模式"></a>锁模式</h3><ol><li>共享锁(S)<br>共享锁是他人可以读但不能写</li><li>排他锁(X)<br>排它锁则会阻塞他人的读写操作</li></ol><a id="more"></a><p>为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的<strong>意向锁</strong>（Intention Locks），这两种意向锁都是表锁。<br>意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。<br>意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。<br>上述来看，InnoDB为了实现多粒度锁机制，采用了意向锁。话句话说如果不将表级锁和行级锁有所区别的话，是实现不了多粒度锁机制的。所以我认为意向锁是为了实现锁的层级而发明出来的一种锁。  </p><h4 id="意向锁的作用"><a href="#意向锁的作用" class="headerlink" title="意向锁的作用"></a>意向锁的作用</h4><p>引进意向锁是为了提高封锁子系统的效率。意向锁的含义是：对任一结点加锁时，必须先对它的上层结点加意向锁。引进意向锁后，系统对某一数据对象加锁时不必逐个检查与下一级结点的封锁冲突了。  </p><p>这里说说我的看法，我们平时更新某一条数据，肯定会加一个表的IS锁，然后再对这一行加一个行级排他锁。在互联网中并发更新是最常见的场景，这个时候InnoDB是如何判断有没有锁冲突的呢？答案我们稍微考虑下就知道了，表的意向锁肯定不能够判断出来的，最终还是要到那一行中去判断有没有冲突。所以网上经常说的提高了判断锁冲突的效率，这样我并不能理解。或者说，其实是加了IX锁，这样才可能提高效率，但是我理解IX锁会影响其他事务的写入，难道实我理解不对？？？这里我先记录下来。</p><h3 id="锁的实现方式"><a href="#锁的实现方式" class="headerlink" title="锁的实现方式"></a>锁的实现方式</h3><p>InnoDB行锁是通过给索引上的索引项加锁来实现的，这一点MySQL与Oracle不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁！在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发性能。</p><p>由于MySQL的行锁是针对索引加的锁，不是针对记录加的锁，所以虽然是访问不同行的记录，但是如果是使用相同的索引键，是会出现锁冲突的。  </p><p>当表有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行，另外，不论是使用主键索引、唯一索引或普通索引，InnoDB都会使用行锁来对数据加锁。如果不同的索引碰巧都落到了同一个行上，那么同样会阻塞。  </p><p>即便在条件中使用了索引字段，但是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价来决定的，如果MySQL认为全表扫描效率更高，比如对一些很小的表，它就不会使用索引，这种情况下InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突时，别忘了检查SQL的执行计划，以确认是否真正使用了索引。</p><p>这里我做一下补充，InnoDB给某一行数据加锁的时候，肯定是给所有能定位到这行数据的所有索引项加锁的，不然同一行数据，根据不同的索引查找到的话，锁就不能生效了。比如说，一个事务根据id更新，另一个事务根据索引更新。</p><p>另外感谢下原作者<a href="https://www.jianshu.com/p/fa28035656a9" target="_blank" rel="noopener">https://www.jianshu.com/p/fa28035656a9</a>、<a href="https://www.jianshu.com/p/325a492a859b" target="_blank" rel="noopener">https://www.jianshu.com/p/325a492a859b</a>。我只是看他们的文章过程中，产生了兴趣和思考。</p>]]></content:encoded>
       
       <comments>http://yoursite.com/2018/09/30/2018-9/mysql%20lock/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>由使用mybatis批量插入功能联想到的</title>
-      <link>http://yoursite.com/2018/09/13/2018-9/mybatis/</link>
-      <guid>http://yoursite.com/2018/09/13/2018-9/mybatis/</guid>
-      <pubDate>Thu, 13 Sep 2018 05:59:14 GMT</pubDate>
-      <description>
-      
-        &lt;h3 id=&quot;先说说由来&quot;&gt;&lt;a href=&quot;#先说说由来&quot; class=&quot;headerlink&quot; title=&quot;先说说由来&quot;&gt;&lt;/a&gt;先说说由来&lt;/h3&gt;&lt;p&gt;新项目中有批量插入的功能，然而在其他项目中没有找到批量插入的写法，我们都知道，我们使用jdbc的时候是可以指定批量模式的，然而在这里并没有看到我想要的有关批量的设置，所以决定去找找批量使用方式。&lt;/p&gt;
-&lt;h3 id=&quot;自己对mybatis的认识过程&quot;&gt;&lt;a href=&quot;#自己对mybatis的认识过程&quot; class=&quot;headerlink&quot; title=&quot;自己对mybatis的认识过程&quot;&gt;&lt;/a&gt;自己对mybatis的认识过程&lt;/h3&gt;&lt;p&gt;查找了不少资料，有细心网友总结的三种方式&lt;a href=&quot;https://blog.csdn.net/m0_37981235/article/details/79131493&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/m0_37981235/article/details/79131493&lt;/a&gt;。不过我认为只有其中的第二种，指定批量模式的才是真正的&lt;strong&gt;批量&lt;/strong&gt;操作。  &lt;/p&gt;
-&lt;p&gt;例子中用的SqlSession，SqlSessionTemplate是SqlSession的一个实现，我们可以使用SqlSessionTemplate 来代理以往的DefailtSqlSession完成对数据库的操作，相比于DefaultSqlSession，SqlSessionTemplate是线程安全的，可以被设置成单例的。&lt;/p&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h3 id="先说说由来"><a href="#先说说由来" class="headerlink" title="先说说由来"></a>先说说由来</h3><p>新项目中有批量插入的功能，然而在其他项目中没有找到批量插入的写法，我们都知道，我们使用jdbc的时候是可以指定批量模式的，然而在这里并没有看到我想要的有关批量的设置，所以决定去找找批量使用方式。</p><h3 id="自己对mybatis的认识过程"><a href="#自己对mybatis的认识过程" class="headerlink" title="自己对mybatis的认识过程"></a>自己对mybatis的认识过程</h3><p>查找了不少资料，有细心网友总结的三种方式<a href="https://blog.csdn.net/m0_37981235/article/details/79131493" target="_blank" rel="noopener">https://blog.csdn.net/m0_37981235/article/details/79131493</a>。不过我认为只有其中的第二种，指定批量模式的才是真正的<strong>批量</strong>操作。  </p><p>例子中用的SqlSession，SqlSessionTemplate是SqlSession的一个实现，我们可以使用SqlSessionTemplate 来代理以往的DefailtSqlSession完成对数据库的操作，相比于DefaultSqlSession，SqlSessionTemplate是线程安全的，可以被设置成单例的。</p><a id="more"></a><p>SqlSession可以理解成jdbc的connection，平时我们写jdbc的使用是使用connection来操作事务的：  </p><pre><code>try{    con.setAutoCommit(false);    preparedStatement.executeUpdate();    con.commit();}finally{    con.rollback();}</code></pre><p>但是在mybatis中我是不建议这样使用的事务的，当然DefaultSqlSession也支持这种类似的操作，查看mybatis的官方文档中，使用TransactionManager管理事务：  </p><pre><code>DefaultTransactionDefinition def = new DefaultTransactionDefinition();def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);TransactionStatus status = txManager.getTransaction(def);try {  userMapper.insertUser(user);}catch (MyException ex) {  txManager.rollback(status);  throw ex;}txManager.commit(status);</code></pre><p>但上述方式还是不够优雅，mybatis如果和IOC容器集成的话，事务都托管给IOC管理，是不支持自己手动管理事务的，看SqlSessionTemplate的源码也能看出来也是这样。<br><img src="https://i.imgur.com/lWYX93K.png" alt=""><br>所以我们在spring的项目中会有类似如下的代码：  </p><pre><code>transactionTemplate.execute(transactionStatus -&gt; {        supplierStoreSkuList.forEach(supplierStoreSku -&gt; {            VenderStoreSkuEntity venderStoreSkuEntity = SupplierStoreSkuBizConvertUtils.convertToVenderStoreSkuEntityFromSupplierStoreSku(supplierStoreSku);            venderStoreSkuMapper.saveSupplierStoreSku(venderStoreSkuEntity);        });        return null;    });</code></pre><p>这样的代码就会好看很多了，TransactionTemplate帮我们管理了事务，包括了事务的开启，事务的提交，事务的回滚。我们看execute内部源码其实也是使用的transactionManager只不过做了一层封装而已：  </p><p><img src="https://i.imgur.com/YCXYI8W.png" alt=""></p><p>我们再来看看TransactionManager是如何管理事务的，  </p><p><img src="https://i.imgur.com/NiRlOmG.png" alt=""></p><p>可以看到，其实内部就是使用的connection，所谓的管理事务，也就是通过connection来做的。</p><h4 id="然后我们再聊聊mapper"><a href="#然后我们再聊聊mapper" class="headerlink" title="然后我们再聊聊mapper"></a>然后我们再聊聊mapper</h4><p>我们回头再看一下jdbc写的事务：  </p><p><img src="https://i.imgur.com/GNtIXtS.png" alt=""></p><p>我们可以看到红线圈起来的部分都是transctionManager做了，那么preparedStatement的事情谁做了呢？很容易就想到这个是mapper做的事情嘛。代码中获取mapper的方式是这样的：  </p><pre><code>UserMapper userMapper = sqlSessionTemplate.getMapper(UserMapper.class);</code></pre><p>从这种使用方式可以窥见，肯定是通过sqlSession来实现的，我们来看看sqlSession的实现DefaultSqlSession，  </p><p><img src="https://i.imgur.com/i1TULEd.png" alt=""></p><p>里面有Excetor，再看看Excetor是什么样的，  </p><p><img src="https://i.imgur.com/dfQ94GG.png" alt=""></p><p>我们又闻到了熟悉的味道，Statement、prepareStatement。至此可以知道了mybatis是如何映射jdbc的了。</p><h4 id="再看看我项目中的配置"><a href="#再看看我项目中的配置" class="headerlink" title="再看看我项目中的配置"></a>再看看我项目中的配置</h4><p><img src="https://i.imgur.com/3F4NAns.png" alt=""></p><p>其实最开始就已经指定了一个SqlSessionTemplate，所以我们才可以再项目中如下使用而没有问题，  </p><p><img src="https://i.imgur.com/qKfV4d9.png" alt=""></p><h3 id="最后说一下mybatis-batch是如何做的"><a href="#最后说一下mybatis-batch是如何做的" class="headerlink" title="最后说一下mybatis batch是如何做的"></a>最后说一下mybatis batch是如何做的</h3><pre><code>applyTransactionTemplate.execute(transactionStatus -&gt; {    // 指定batch模型的sqlSessionTemplate    SqlSessionTemplate sqlSessionTemplate =  new SqlSessionTemplate(applySqlSessionFactory, ExecutorType.BATCH);    VenderSkuApplyMapper venderSkuApplyBatchMapper = sqlSessionTemplate.getMapper(VenderSkuApplyMapper.class);    for(VenderSkuApplyEntity venderSkuApplyEntity : venderSkuApplyEntities){        venderSkuApplyBatchMapper.insert(venderSkuApplyEntity);    }    sqlSessionTemplate.flushStatements();    return null;});</code></pre><p>其实就是指定了单独batch模式的SqlSessionTemplate。</p><h4 id="还有一点关于flushStatements的疑问"><a href="#还有一点关于flushStatements的疑问" class="headerlink" title="还有一点关于flushStatements的疑问"></a>还有一点关于flushStatements的疑问</h4><p>查看mybatis官方文档，看到了flushStatements这个方法，</p><p><img src="https://i.imgur.com/wVycNik.png" alt=""></p><p>我们先看一下jdbc的batch是怎么写的，  </p><pre><code>String sql = &quot;insert into t_user(name, mobile, email) values(?,?,?)&quot;;try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {    List&lt;User&gt; users = this.getUsers();    for (User user : users) {       pstmt.setString(1, user.getName());       pstmt.setString(2, user.getMobile());       pstmt.setString(3, user.getEmail());       pstmt.addBatch();    }    pstmt.executeBatch();    conn.commit();  }</code></pre><p>可以看到，其实是有一个addBatch和executeBatch的操作，mybatis的话batch操作会调用BatchExecutor的doUpdate方法，  </p><p><img src="https://i.imgur.com/rPnJ7oN.png" alt=""></p><p>handler.batch内部是这样的，  </p><p><img src="https://i.imgur.com/JpHdxxt.png" alt=""></p><p>其实内部也是调用的statement的addBatch操作。  </p><p>然后我在BatchExecutor的doFlushStatements找到了executeBatch()，  </p><p><img src="https://i.imgur.com/SIZ5MxD.png" alt=""></p><p>在BaseExecutor的源码，发现commit中有这个调用，  </p><p><img src="https://i.imgur.com/kM4u1Hu.png" alt="">  </p><p>而使用IOC容器管理事务最终会调用commit方法，所以最终结论是如果不是我们自己手动管理事务，是我们不需要自己调用flushStatements的，over。  </p><p>还找到了其他人对这个方法使用的解释，<a href="https://blog.csdn.net/y41992910/article/details/53641825" target="_blank" rel="noopener">https://blog.csdn.net/y41992910/article/details/53641825</a>，这个解释也有点奇怪，我没有尝试里面所说的方式，但是感觉这本身就是在一个事务中所做的事情吧，跟flushStatements本身没有关系的吧。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/09/13/2018-9/mybatis/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Proxy</title>
-      <link>http://yoursite.com/2018/09/08/2018-9/Proxy/</link>
-      <guid>http://yoursite.com/2018/09/08/2018-9/Proxy/</guid>
-      <pubDate>Sat, 08 Sep 2018 03:13:14 GMT</pubDate>
-      <description>
-      
-        &lt;h3 id=&quot;先讲讲由来&quot;&gt;&lt;a href=&quot;#先讲讲由来&quot; class=&quot;headerlink&quot; title=&quot;先讲讲由来&quot;&gt;&lt;/a&gt;先讲讲由来&lt;/h3&gt;&lt;p&gt;最近项目中要写一个统一的异常拦截，并且打日志的功能，所以很自然的想到了切面，并且很自然想到了spring的aop。  &lt;/p&gt;
-&lt;h3 id=&quot;先讲一个spring的aop&quot;&gt;&lt;a href=&quot;#先讲一个spring的aop&quot; class=&quot;headerlink&quot; title=&quot;先讲一个spring的aop&quot;&gt;&lt;/a&gt;先讲一个spring的aop&lt;/h3&gt;&lt;p&gt;spring有好几种方式使用apo：  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;使用MethodInterceptor&lt;/li&gt;
-&lt;li&gt;使用声明式aop（&lt;aop:config&gt;）&lt;/aop:config&gt;&lt;/li&gt;
-&lt;li&gt;使用aop注解（@Aspect）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;再具体的细节我就不讲了，有很多优秀的文章都讲了如何使用&lt;a href=&quot;https://www.cnblogs.com/jacksonshi/p/5863313.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/jacksonshi/p/5863313.html&lt;/a&gt;，&lt;br&gt;看到这里的时候对aspect产生了兴趣。&lt;/p&gt;
-&lt;h3 id=&quot;再讲讲aspect&quot;&gt;&lt;a href=&quot;#再讲讲aspect&quot; class=&quot;headerlink&quot; title=&quot;再讲讲aspect&quot;&gt;&lt;/a&gt;再讲讲aspect&lt;/h3&gt;&lt;p&gt;aspect翻译为切面，和面向对象编程一样有面向切面编程（AOP），目前有一个非常出名的面向切面编程的框架AspectJ，它定义了自己的切面语法，还有自己的织入工具。对于spring来说，其实也是用AspectJ的预发定义了切面的规则，但它背后使用了cglib的动态代理，没有使用AspectJ的织入代码。这里有一篇很不错的文章介绍了AspectJ&lt;a href=&quot;https://juejin.im/entry/5a40abb16fb9a0451e400886&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://juejin.im/entry/5a40abb16fb9a0451e400886&lt;/a&gt;  &lt;/p&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h3 id="先讲讲由来"><a href="#先讲讲由来" class="headerlink" title="先讲讲由来"></a>先讲讲由来</h3><p>最近项目中要写一个统一的异常拦截，并且打日志的功能，所以很自然的想到了切面，并且很自然想到了spring的aop。  </p><h3 id="先讲一个spring的aop"><a href="#先讲一个spring的aop" class="headerlink" title="先讲一个spring的aop"></a>先讲一个spring的aop</h3><p>spring有好几种方式使用apo：  </p><ol><li>使用MethodInterceptor</li><li>使用声明式aop（<aop:config>）</aop:config></li><li>使用aop注解（@Aspect）</li></ol><p>再具体的细节我就不讲了，有很多优秀的文章都讲了如何使用<a href="https://www.cnblogs.com/jacksonshi/p/5863313.html" target="_blank" rel="noopener">https://www.cnblogs.com/jacksonshi/p/5863313.html</a>，<br>看到这里的时候对aspect产生了兴趣。</p><h3 id="再讲讲aspect"><a href="#再讲讲aspect" class="headerlink" title="再讲讲aspect"></a>再讲讲aspect</h3><p>aspect翻译为切面，和面向对象编程一样有面向切面编程（AOP），目前有一个非常出名的面向切面编程的框架AspectJ，它定义了自己的切面语法，还有自己的织入工具。对于spring来说，其实也是用AspectJ的预发定义了切面的规则，但它背后使用了cglib的动态代理，没有使用AspectJ的织入代码。这里有一篇很不错的文章介绍了AspectJ<a href="https://juejin.im/entry/5a40abb16fb9a0451e400886" target="_blank" rel="noopener">https://juejin.im/entry/5a40abb16fb9a0451e400886</a>  </p><a id="more"></a><h3 id="然后了解下cglib"><a href="#然后了解下cglib" class="headerlink" title="然后了解下cglib"></a>然后了解下cglib</h3><p>cglib本身是一个代码生成库，可以生成字节码。所谓cglib的动态代理就是分析了aspect定义的规则，然后生成了对应的代理类，加载到内存中使用。<br>网上总是拿jdk的动态代理和cglib的动态代理来比较，这里我们也简单的介绍下：  </p><p><strong>JDK动态代理只能对实现了接口的类生成代理，而不能针对类<br>CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法（继承）</strong>  </p><p>talk is cheap,let’s code.下面是我写的一个jdk代理的demo：  </p><pre><code>public class DynamicProxyTest {public static void main(String[] args){    //生成$Proxy0的class文件</code></pre><p>//        System.getProperties().put(“sun.misc.ProxyGenerator.saveGeneratedFiles”, “true”);</p><pre><code>    IHello iHello = (IHello) Proxy.newProxyInstance(IHello.class.getClassLoader(),            new Class[]{IHello.class} ,            new MyInvocationHandler(new Hello()));    iHello.sayHello();}public static interface IHello{    void sayHello();}public static class Hello implements IHello{    @Override    public void sayHello() {        System.out.println(&quot;hello world&quot;);    }}public static class MyInvocationHandler implements InvocationHandler {    Object javaProxy;    public MyInvocationHandler(Object javaProxy) {        this.javaProxy = javaProxy;    }    private void aopMethod() {        System.out.println(&quot;before method&quot;);    }    //继承方法，代理时实际执行的犯法，如果要实现原方法，则需要调用method.invoke(javaProxy, args)，这里还调用了一个aopMethod(),可以类比于Spring中的切面before注解。    @Override    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {        aopMethod();        return method.invoke(javaProxy, args);    }}}</code></pre><p>这是下面是jdk生成的代理类反编译后的结果：</p><pre><code>public class DynamicProxyTest$MyInvocationHandler    implements InvocationHandler{Object javaProxy;public DynamicProxyTest$MyInvocationHandler(Object javaProxy){    this.javaProxy = javaProxy;}private void aopMethod(){    System.out.println(&quot;before method&quot;);}public Object invoke(Object proxy, Method method, Object[] args)        throws Throwable{    aopMethod();    return method.invoke(this.javaProxy, args);}}</code></pre><p>可以看到InvocationHandler的写法还是最终生成的代理类的代码其实和我们写的静态代理的方式是一样的。</p><p>接下来我们看看cglib的：<br>    public class DynamicProxyCglibTest {</p><pre><code>public static void main(String[] args){    Enhancer enhancer = new Enhancer();    enhancer.setSuperclass(HelloImpl.class);    enhancer.setCallback(new HelloMethodIntercepter());    HelloImpl hello = (HelloImpl)enhancer.create();    hello.sayHello();}public static class HelloImpl {    public void sayHello() {        System.out.println(&quot;hello world&quot;);    }}public static class HelloMethodIntercepter implements MethodInterceptor {    @Override    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {        System.out.println(&quot;before:&quot; + method.getName());        Object object = methodProxy.invokeSuper(o, objects);        System.out.println(&quot;after:&quot; + method.getName());        return object;    }}}</code></pre><p>这是下面是jdk生成的代理类反编译后的结果：  </p><pre><code>public class DynamicProxyCglibTest$HelloMethodIntercepter    implements MethodInterceptor{public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy)        throws Throwable{    System.out.println(&quot;before:&quot; + method.getName());    Object object = methodProxy.invokeSuper(o, objects);    System.out.println(&quot;after:&quot; + method.getName());    return object;}}</code></pre><p>可以看到其实都是大同小异的。我们成天总是将动态代理、静态代理的区别什么的，其实从最根本上说是没什么区别的，都是生成了另一个代理实例，来调用我们真正的实例。只不过动态代理带给我们的方便是不需要我们自己写这个实例而已，由代码生成器去生成罢了。如果是统一的规则应用在很多的类方法，这个时候所谓动态代理就显示了威力，不需要我们去一个个写代理类了，反而言之，如果只有一个类的话，动态代理也就没什么必要了。  </p><p>这里顺便说一下，经常讨论的动态代理的性能不好什么的，我原来的以为是动态代理每次去做都需要生成字节码的，今天了解后才知道不是，根本就是编译的时候就生成放在jvm中了。那么问题来了，如果不是字节码的性能损耗，对于代码来说就跟我们平时写个包装类，也只是多了一层调用而已，不应该有什么损耗的吧。所以所谓动态代理的性能损耗不是指的是代理本身，而是指的动态代理用的反射的损耗。但是一般在spring管理下的实例也是单例的，生成的代理实例应该也是单例，所以也不存在newInstance的损耗，那最终应该就是invoke的损耗了吧。  </p><p>上面是我的推断，后续还要确认，如果异议欢迎来议。</p><p>最后说一下，jdk从1.7之后代理的性能已经超过了cglib了，所以网上说的什么cglib完爆jdk那是很多年前的事情了。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/09/08/2018-9/Proxy/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Treap</title>
-      <link>http://yoursite.com/2018/08/21/2018-8/Treap/</link>
-      <guid>http://yoursite.com/2018/08/21/2018-8/Treap/</guid>
-      <pubDate>Tue, 21 Aug 2018 10:47:11 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h3 id=&quot;Treap是什么&quot;&gt;&lt;a href=&quot;#Treap是什么&quot; class=&quot;headerlink&quot; title=&quot;Treap是什么&quot;&gt;&lt;/a&gt;Treap是什么&lt;/h3&gt;&lt;p&gt;Treap是Tree+Heap，也是一种二叉查找树。它相对于二叉树多了priority的概念
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h3 id="Treap是什么"><a href="#Treap是什么" class="headerlink" title="Treap是什么"></a>Treap是什么</h3><p>Treap是Tree+Heap，也是一种二叉查找树。它相对于二叉树多了priority的概念。<br>它具有二叉树和堆的特性：  </p><ol><li>Treap是关于key的二叉排序树（也就是规定的排序方式）。</li><li>Treap是关于priority的堆（按照随机出的优先级作为小根/大根堆)。（非二叉堆，因为不是完全二叉树）</li><li>key和priority确定时，treap唯一。</li></ol><p>Treap依赖于随机数，随机生成的优先级属性，通过简单的左右旋可以将长链旋转成近似完全二叉树结构。</p><h3 id="Treap是如何做到近似完全二叉树的呢？"><a href="#Treap是如何做到近似完全二叉树的呢？" class="headerlink" title="Treap是如何做到近似完全二叉树的呢？"></a>Treap是如何做到近似完全二叉树的呢？</h3><p>拿插入来说，先按照key的大小添加到二叉树上，再按照priority旋转二叉树。因为priority是随机分配的，所以在一定的概率上不容易导致单链条的二叉树，这就是Treap最根本的特点。</p>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2018/08/21/2018-8/Treap/#disqus_thread</comments>
     </item>
     
   </channel>

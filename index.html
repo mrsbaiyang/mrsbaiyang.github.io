@@ -285,6 +285,467 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/2019-9/HashMap的小认识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/2019-9/HashMap的小认识/" itemprop="url">HashMap的小认识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T18:21:36+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>想充分了解HashMap很久了，这个我们时刻使用，但是对于我来说总感觉有着迷雾的数据结构。  </p>
+<p>##HashMap<br>下面是居于JDK7的，JDK8的红黑树结构暂时放弃。  </p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>HashMap继承了AbstractMap、实现了Map</p>
+<pre><code>public class HashMap&lt;K,V&gt;
+extends AbstractMap&lt;K,V&gt;
+implements Map&lt;K,V&gt;, Cloneable, Serializable
+{
+/**
+ * The table, resized as necessary. Length MUST Always be a power of two.
+ */
+transient Entry&lt;K,V&gt;[] table;
+</code></pre><p>重要的是数组table以及它的内部类Entry。  </p>
+<pre><code>static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    final K key;
+    V value;
+    Entry&lt;K,V&gt; next;
+    int hash;
+</code></pre><p>可以看到Entry里有一个next属性，所以它本身就是个单链表，以下就是我们常说的数组+链表的结构：  </p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4843132-05b3a55bd2686dd3.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/23/2019-9/HashMap的小认识/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/2019-4/parallelStream null/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/11/2019-4/parallelStream null/" itemprop="url">parallelStream注意点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T17:22:36+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>刚刚的项目中发现了一个bug，是由于使用parallelStream导致，在此记录下。  </p>
+<h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>测试反馈，查询出来的数据不正确，有时候多一个有时候少一个。</p>
+<h3 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h3><p>由此看来这肯定是一个比较让人困惑的问题，而能想到的这种随机性问题基本都和并发有关。所以我就想到了，我在一个循环rpc的中使用了parallelStream，如下所示：<br><img src="https://i.imgur.com/9tBLlMa.png" alt=""></p>
+<h3 id="解惑答疑"><a href="#解惑答疑" class="headerlink" title="解惑答疑"></a>解惑答疑</h3><p>使用parallelStream只考虑到了ForkJoinPool最终会等待每个线程执行完毕，但是并没有考虑到线程安全问题，最终返回的结果就导致了list列表里出现了null。更深层次原因是由于ArrayList.add方法并不是线程安全的，如下所示：<br><img src="https://i.imgur.com/P8Vg2D5.png" alt=""><br>是先增加了容器大小，然后再赋值，这个操作并不是一个原子操作，导致了此问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/2019-1/jvm的小理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/29/2019-1/jvm的小理解/" itemprop="url">jvm的意义</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T16:01:12+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>哈哈哈，请原谅我标题的假大空，其实我想说只有两点：  </p>
+<ol>
+<li>为什么会出现jvm这种技术以及jvm是如何发展到今天的？  </li>
+<li>什么才是jvm当下最大的优势？  </li>
+</ol>
+<p>在大约20多年前，当时主流的开发语言还是C，C语言由于其编译后直接运行在操作系统之上，被称为运行最快的语言。但这也带来了开发人员的苦恼，开发人员不得不去了解各个操作系统的差异性，来编写出适应于某个操作系统的代码。  </p>
+<p>在1995年SunWorld大会上，首次提出“Write Once, Run Anywhere”的口号，而那时候windows95几个月后在正式发布，linix 1.0版也才发布一年，可以想象在那个时候挺具有的划时代意义的。时间回到现在，windows系统在服务器端越来走下坡路，而linux几乎是势不可挡（至少在互联网领域），在这种现状下，所谓的“Write Once, Run Anywhere”是否真的还是jvm的决对优势呢？其实我们简单思考下就可以了，想想我们在我们的司龄内是否有更换服务器环境的需求呢？  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/29/2019-1/jvm的小理解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/2019-1/CAP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1326,464 +1787,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-6/encode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-6/encode/" itemprop="url">encode的理解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这片文章写的很不错，受益匪浅，推荐之。<a href="https://blog.csdn.net/softwarenb/article/details/51994943" title="深入理解-字符编码ASCII,GB2312,GBK,Unicode,UTF-8" target="_blank" rel="noopener">https://blog.csdn.net/softwarenb/article/details/51994943</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-7/AVL Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-7/AVL Tree/" itemprop="url">AVL Tree</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##二叉树<br>每个节点最多有两个子节点</p>
-<p>##二叉查找树<br>左节点小于父节点，父节点小于右节点<br>时间复杂度：logN &lt;= O(h) &lt;= N</p>
-<p>##自平衡二叉查找树<br>AVL树中任何节点的两个子树的高度最大差别为1，所以它也被称为高度平衡树。通过旋转维持平衡，降低时间复杂度。  </p>
-<p>###旋转轴节点<br>想要确定旋转轴节点需要先知道几个概念。</p>
-<ol>
-<li>平衡因子：二叉树某节点左右子树高度差(左减右为正还是右减左为正可自定义，下面的例子假定左减右为正)  </li>
-<li>最小不平衡子树：以距离插入节点最近的且平衡因子绝对值大于1的节点为根节点的子树  </li>
-<li>next larger：是指比某个node A 大的值，但是比所有其他大于node A的nodes 都要小；比较绕口，其实本质就是在所有比node A 大的集合中，key值最接近node A 的哪一个node  </li>
-<li>next smaller：同理next larger  </li>
-</ol>
-<p>旋转轴节点的确定，是由<em>最小不平衡子树</em>的<em>平衡因子</em>的正负，来决定找最小不平衡子树根节点的next smaller或者next larger。如果最小不平衡子树的平衡因子为正，其旋转轴节点为其root节点的next smaller；反之同理。  并且旋转轴节点是新子树的根节点。<br>可以试着用上面的方法确定以下二叉树的旋转轴节点：<br><img src="https://i.imgur.com/uU7mG3p.png" alt=""><br><img src="https://i.imgur.com/YnxXNhq.png" alt=""></p>
-<p>###旋转<br>旋转的目的是，通过降低左右子树的高度，来达到平衡。<br>首先我们需要知道，我们的旋转对象，或者说平衡目标，是什么？大家可能都知道了，上面我们已经多次提到了，就是<strong>最小不平衡子树</strong>。<br>因为自平衡二叉树查找树每一次插入新节点后，都要检查是否破坏了平衡，如果破坏了平衡都会通过旋转来保持平衡。所以说每一次的不平衡状态的平衡因子都只可能为-1或者1，也就是说我们只要解决了最小不平衡子树的不平衡，将其挂在其原有根节点的位置，也就是解决了整棵树的不平衡。 </p>
-<p>旋转分为两类，单旋转和双旋转。</p>
-<ol>
-<li>单旋转<br>当<strong>最小不平衡子树</strong>的平衡因子与其子树(新加节点路径上的子树)的平衡因子为同符号性质(同为正/负号)时单旋转。<br>如果不存在左孩子，左旋转会将父节点挂在旋转轴的左孩子处；如果存在左孩子，则需要和做孩子对比大小，如果比其左孩子小的话，就挂在其左孩子的左节点，如果比其左孩子大的话，就替换为其孩子的位置，原来的左孩子挂在新的做孩子的左节点。右旋转的操作同理。</li>
-<li>双旋转<br>当<strong>最小不平衡子树</strong>的平衡因子与其子树(新加节点路径上的子树)的平衡因子为异符号性质(正负/负正)时双旋转。<br>双旋转就是需要旋转两次，LR或者RL。<br>以下是一个双旋转RL的过程：<br><img src="https://i.imgur.com/VcWpsRL.jpg" alt=""></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-7/Heap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-7/Heap/" itemprop="url">Heap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###完全二叉树<br>若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全二叉树。<br><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7ee311d70923dd54357eaf3ab060d8bb/b151f8198618367a6f44126e2e738bd4b21ce5b0.jpg" alt=""></p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆（heap）也被称为优先队列（priority queue）。堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的，这个优先顺序可以是元素的大小或者其他规则。如图一所示就是一个堆，堆优先顺序就是大的元素排在前面，小的元素排在后面，这样得到的堆称为最大堆。最大堆中堆顶的元素是整个堆中最大的，并且每一个分支也可以看成一个最大堆。</p>
-<p><img src="http://img.my.csdn.net/uploads/201210/16/1350354702_4619.jpg" alt=""></p>
-<h4 id="堆的存储"><a href="#堆的存储" class="headerlink" title="堆的存储"></a>堆的存储</h4><p>堆可以看成一个二叉树，所以可以考虑使用二叉树的表示方法来表示堆。但是因为堆中元素按照一定的优先顺序排列，因此可以使用更简单的方法——数组——来表示，这样可以节省子节点指针空间，并且可以快速访问每个节点。堆的数组表示其实就是堆层级遍历的结果。</p>
-<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>堆还可以看成一个完全二叉树，每次总是先填满上一层，再在下一层从左往右依次插入。堆的插入步骤：</p>
-<ol>
-<li>将新元素增加到堆的末尾</li>
-<li>按照优先顺序，将新元素与其父节点比较，如果新元素小于父节点则将两者交换位置。</li>
-<li>不断进行第2步操作，直到不需要交换新元素和父节点，或者达到堆顶</li>
-<li><p>最后通过得到一个最小堆</p>
-<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>堆的删除操作与插入操作相反，插入操作从下往上调整堆，而删除操作则从上往下调整堆。</p>
-</li>
-<li><p>删除堆顶元素（通常是将堆顶元素放置在数组的末尾）</p>
-</li>
-<li>比较左右子节点，将小的元素上调。</li>
-<li>不断进行步骤2，直到不需要调整或者调整到堆底。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1834,7 +1837,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1856,7 +1859,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
