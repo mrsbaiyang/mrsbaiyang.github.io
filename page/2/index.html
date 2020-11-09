@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/2018-9/Proxy/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/17/2020-6/组合模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="baiyang">
@@ -304,7 +304,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/08/2018-9/Proxy/" itemprop="url">Proxy</a></h1>
+                <a class="post-title-link" href="/2020/06/17/2020-6/组合模式/" itemprop="url">组合模式</a></h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T11:13:14+08:00">
-                2018-09-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-17T16:32:16+08:00">
+                2020-06-17
               </time>
             
 
@@ -377,18 +377,323 @@
 
       
         
-          <h3 id="先讲讲由来"><a href="#先讲讲由来" class="headerlink" title="先讲讲由来"></a>先讲讲由来</h3><p>最近项目中要写一个统一的异常拦截，并且打日志的功能，所以很自然的想到了切面，并且很自然想到了spring的aop。  </p>
-<h3 id="先讲一个spring的aop"><a href="#先讲一个spring的aop" class="headerlink" title="先讲一个spring的aop"></a>先讲一个spring的aop</h3><p>spring有好几种方式使用apo：  </p>
-<ol>
-<li>使用MethodInterceptor</li>
-<li>使用声明式aop（<aop:config>）</aop:config></li>
-<li>使用aop注解（@Aspect）</li>
+          
+            <h2 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h2><p>找到了一篇文章里面对组合模式的分析挺不错的：<a href="https://www.cnblogs.com/chenssy/p/3299719.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenssy/p/3299719.html</a>。这里我只简单记录下我理解的组合模式。</p>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><ol>
+<li>具有组合关系并不算是使用了组合模式</li>
+<li>透明方式比安全方式更贴合组合模式的原则</li>
 </ol>
-<p>再具体的细节我就不讲了，有很多优秀的文章都讲了如何使用<a href="https://www.cnblogs.com/jacksonshi/p/5863313.html" target="_blank" rel="noopener">https://www.cnblogs.com/jacksonshi/p/5863313.html</a>，<br>看到这里的时候对aspect产生了兴趣。</p>
-<h3 id="再讲讲aspect"><a href="#再讲讲aspect" class="headerlink" title="再讲讲aspect"></a>再讲讲aspect</h3><p>aspect翻译为切面，和面向对象编程一样有面向切面编程（AOP），目前有一个非常出名的面向切面编程的框架AspectJ，它定义了自己的切面语法，还有自己的织入工具。对于spring来说，其实也是用AspectJ的预发定义了切面的规则，但它背后使用了cglib的动态代理，没有使用AspectJ的织入代码。这里有一篇很不错的文章介绍了AspectJ<a href="https://juejin.im/entry/5a40abb16fb9a0451e400886" target="_blank" rel="noopener">https://juejin.im/entry/5a40abb16fb9a0451e400886</a>  </p>
+<p>必须要具备树形结构才适合用到组合模式。所以，感觉组合模式和递归是分区不开的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/2020-6/享元模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/16/2020-6/享元模式/" itemprop="url">享元模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-16T20:10:48+08:00">
+                2020-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h2><p>找到了一篇文章里面对享元模式的分析挺不错的：<a href="https://blog.csdn.net/justloveyou_/article/details/55045638" target="_blank" rel="noopener">https://blog.csdn.net/justloveyou_/article/details/55045638</a>。但是这里我想聊一些别的方面，关于我们实际用享元模式的思考。</p>
+<h2 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h2><p>在我实际写业务代码时，发现自己很少去用到享元模式，主要有三方面因素：</p>
+<ol>
+<li>并发编程告诉我们尽量少去共享实例，容易引发并发问题</li>
+<li>实际写代码的过程中也很少遇到需要，因为内存的问题需要去考虑共享实例的情况</li>
+<li>最后抽象出来享元角色，以及区分出内部状态和外部状态也是一个需要仔细考量的过程</li>
+</ol>
+<p>反过来想，传统的使用Spring写的三层架构中的Service层，Spring就将我们写的Service初始化成了一个单例实例，而且Spring充当了工厂角色，Service Interface充当了Flyweight角色，ServiceImpl充当了Concrete Flyweight角色，而我们Service 方法的参数其实就是Unsharable Flyweight角色，只不过此场景不是细粒度对象的复用，而是大对象的复用。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/2020-6/外观模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/16/2020-6/外观模式/" itemprop="url">外观模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-16T14:59:23+08:00">
+                2020-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="定义与特点"><a href="#定义与特点" class="headerlink" title="定义与特点"></a>定义与特点</h2><p>外观（Facade）模式的定义：是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体的细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。</p>
+<p>外观（Facade）模式是“迪米特法则”的典型应用，它有以下主要优点。</p>
+<ol>
+<li>降低了子系统与客户端之间的耦合度，使得子系统的变化不会影响调用它的客户类。</li>
+<li>对客户屏蔽了子系统组件，减少了客户处理的对象数目，并使得子系统使用起来更加容易。</li>
+<li>降低了大型软件系统中的编译依赖性，简化了系统在不同平台之间的移植过程，因为编译一个子系统不会影响其他的子系统，也不会影响外观对象。</li>
+</ol>
+<p>外观（Facade）模式的主要缺点如下。</p>
+<ol>
+<li>不能很好地限制客户使用子系统类。</li>
+<li>增加新的子系统可能需要修改外观类或客户端的源代码，违背了“开闭原则”。</li>
+</ol>
+<h2 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h2><p>外观（Facade）模式包含以下主要角色。</p>
+<ol>
+<li>外观（Facade）角色：为多个子系统对外提供一个共同的接口。</li>
+<li>子系统（Sub System）角色：实现系统的部分功能，客户可以通过外观角色访问它。</li>
+<li>客户（Client）角色：通过一个外观角色访问各个子系统的功能。</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/08/2018-9/Proxy/#more" rel="contents">
+            <a class="btn" href="/2020/06/16/2020-6/外观模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -439,7 +744,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/2018-8/Treap/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/2020-6/装饰器模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="baiyang">
@@ -458,7 +763,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/2018-8/Treap/" itemprop="url">Treap</a></h1>
+                <a class="post-title-link" href="/2020/06/15/2020-6/装饰器模式/" itemprop="url">装饰器模式</a></h1>
         
 
         <div class="post-meta">
@@ -470,8 +775,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-21T18:47:11+08:00">
-                2018-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-15T15:36:09+08:00">
+                2020-06-15
               </time>
             
 
@@ -531,170 +836,23 @@
 
       
         
-          
-            <h3 id="Treap是什么"><a href="#Treap是什么" class="headerlink" title="Treap是什么"></a>Treap是什么</h3><p>Treap是Tree+Heap，也是一种二叉查找树。它相对于二叉树多了priority的概念。<br>它具有二叉树和堆的特性：  </p>
+          <h2 id="定义与特点"><a href="#定义与特点" class="headerlink" title="定义与特点"></a>定义与特点</h2><p>装饰（Decorator）模式的定义：指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。</p>
+<p>装饰（Decorator）模式的主要优点有：</p>
+<ul>
+<li>采用装饰模式扩展对象的功能比采用继承方式更加灵活。</li>
+<li>可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。</li>
+</ul>
+<p>其主要缺点是：装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。</p>
+<h2 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h2><p>装饰模式主要包含以下角色。</p>
 <ol>
-<li>Treap是关于key的二叉排序树（也就是规定的排序方式）。</li>
-<li>Treap是关于priority的堆（按照随机出的优先级作为小根/大根堆)。（非二叉堆，因为不是完全二叉树）</li>
-<li>key和priority确定时，treap唯一。</li>
-</ol>
-<p>Treap依赖于随机数，随机生成的优先级属性，通过简单的左右旋可以将长链旋转成近似完全二叉树结构。</p>
-<h3 id="Treap是如何做到近似完全二叉树的呢？"><a href="#Treap是如何做到近似完全二叉树的呢？" class="headerlink" title="Treap是如何做到近似完全二叉树的呢？"></a>Treap是如何做到近似完全二叉树的呢？</h3><p>拿插入来说，先按照key的大小添加到二叉树上，再按照priority旋转二叉树。因为priority是随机分配的，所以在一定的概率上不容易导致单链条的二叉树，这就是Treap最根本的特点。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/16/2018-8/IO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/16/2018-8/IO/" itemprop="url">IO</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T18:28:30+08:00">
-                2018-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="先推荐两篇非常不错的文章"><a href="#先推荐两篇非常不错的文章" class="headerlink" title="先推荐两篇非常不错的文章"></a>先推荐两篇非常不错的文章</h3><p><a href="https://www.cnblogs.com/aspirant/p/6877350.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">https://www.cnblogs.com/aspirant/p/6877350.html?utm_source=itdadao&amp;utm_medium=referral</a><br><a href="https://www.cnblogs.com/aspirant/p/9166944.html" target="_blank" rel="noopener">https://www.cnblogs.com/aspirant/p/9166944.html</a></p>
-<h3 id="先给IO分个类"><a href="#先给IO分个类" class="headerlink" title="先给IO分个类"></a>先给IO分个类</h3><p><img src="https://i.imgur.com/9MDfqPj.png" alt=""><br>我们平时总是提到的一些名词都在图里了，需要关注的是，NIO、IO多路复用，都属于同步IO。<br>到这里我们就清晰了，我们最常提的select、poll、epoll其实都是同步IO。</p>
-<h3 id="再讲讲什么是IO操作"><a href="#再讲讲什么是IO操作" class="headerlink" title="再讲讲什么是IO操作"></a>再讲讲什么是IO操作</h3><p>先同步两个概念：  </p>
-<ol>
-<li>内核空间（kernel）</li>
-<li>用户空间（user）</li>
-</ol>
-<p>输入操作一般包含两个步骤：  </p>
-<ol>
-<li>等待数据准备好（waiting for data to be ready）。对于一个套接口上的操作，这一步骤关系到数据从网络到达，并将其复制到内核的某个缓冲区。  </li>
-<li>将数据从内核缓冲区复制到进程缓冲区（copying the data from the kernel to the process）。</li>
+<li>抽象构件（Component）角色：定义一个抽象接口以规范准备接收附加责任的对象。</li>
+<li>具体构件（Concrete    Component）角色：实现抽象构件，通过装饰角色为其添加一些职责。</li>
+<li>抽象装饰（Decorator）角色：继承抽象构件，并包含具体构件的实例，可以通过其子类扩展具体构件的功能。</li>
+<li>具体装饰（ConcreteDecorator）角色：实现抽象装饰的相关方法，并给具体构件对象添加附加的责任。</li>
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/16/2018-8/IO/#more" rel="contents">
+            <a class="btn" href="/2020/06/15/2020-6/装饰器模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -745,7 +903,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/15/2018-8/fd/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/12/2020-6/桥接模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="baiyang">
@@ -764,7 +922,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/15/2018-8/fd/" itemprop="url">文件描述符</a></h1>
+                <a class="post-title-link" href="/2020/06/12/2020-6/桥接模式/" itemprop="url">桥接模式</a></h1>
         
 
         <div class="post-meta">
@@ -776,8 +934,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T17:44:33+08:00">
-                2018-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-12T13:36:38+08:00">
+                2020-06-12
               </time>
             
 
@@ -837,620 +995,19 @@
 
       
         
-          
-            <h3 id="为什么想了解文件描述符"><a href="#为什么想了解文件描述符" class="headerlink" title="为什么想了解文件描述符"></a>为什么想了解文件描述符</h3><p>对于<strong>文件描述符</strong>这个概念我们也是听的很多了，但关于他具体是什么，我也总是之乎者也。看到了select模型，又提到文件描述符的最大1024数量的限制，觉得有必要了解下了。</p>
-<h3 id="不错的文章推荐"><a href="#不错的文章推荐" class="headerlink" title="不错的文章推荐"></a>不错的文章推荐</h3><p>这里有很不错的两篇文章：<br><a href="https://blog.csdn.net/yanjun_1982/article/details/79421528" target="_blank" rel="noopener">https://blog.csdn.net/yanjun_1982/article/details/79421528</a><br><a href="https://my.oschina.net/iuranus/blog/330397?fromerr=x1SVuj0Z" target="_blank" rel="noopener">https://my.oschina.net/iuranus/blog/330397?fromerr=x1SVuj0Z</a>  </p>
-<h3 id="什么是文件"><a href="#什么是文件" class="headerlink" title="什么是文件"></a>什么是文件</h3><p>unix(like)世界里，一切皆文件，而文件是什么呢？文件就是一串二进制流而已，不管socket,还是FIFO、管道、终端，对我们来说，一切都是文件，一切都是流。在信息 交换的过程中，我们都是对这些流进行数据的收发操作，简称为I/O操作(input and output)，往流中读出数据，系统调用read，写入数据，系统调用write。<br>不过话说回来了 ，计算机里有这么多的流，我怎么知道要操作哪个流呢？对，就是<strong>文件描述符</strong>，即通常所说的fd，一个fd就是一个整数，所以，对这个整数的操作，就是对这个文件（流）的操作。我们创建一个socket,通过系统调用会返回一个文件描述符，那么剩下对socket的操作就会转化为对这个描述符的操作。不能不说这又是一种分层和抽象的思想。</p>
-<h3 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h3><p>文件描述符（fd）就是一个可以定位到文件对象的对象（如果万物皆对象概念的话）</p>
-<h3 id="最后说一下select"><a href="#最后说一下select" class="headerlink" title="最后说一下select"></a>最后说一下select</h3><p>select模型受文件描述符限制，是由于他使用了文件描述符表，而一个进程的文件描述符表的最大size是一定的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-6/encode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-6/encode/" itemprop="url">encode的理解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这片文章写的很不错，受益匪浅，推荐之。<a href="https://blog.csdn.net/softwarenb/article/details/51994943" title="深入理解-字符编码ASCII,GB2312,GBK,Unicode,UTF-8" target="_blank" rel="noopener">https://blog.csdn.net/softwarenb/article/details/51994943</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-7/Heap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-7/Heap/" itemprop="url">Heap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###完全二叉树<br>若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全二叉树。<br><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7ee311d70923dd54357eaf3ab060d8bb/b151f8198618367a6f44126e2e738bd4b21ce5b0.jpg" alt=""></p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆（heap）也被称为优先队列（priority queue）。堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的，这个优先顺序可以是元素的大小或者其他规则。如图一所示就是一个堆，堆优先顺序就是大的元素排在前面，小的元素排在后面，这样得到的堆称为最大堆。最大堆中堆顶的元素是整个堆中最大的，并且每一个分支也可以看成一个最大堆。</p>
-<p><img src="http://img.my.csdn.net/uploads/201210/16/1350354702_4619.jpg" alt=""></p>
-<h4 id="堆的存储"><a href="#堆的存储" class="headerlink" title="堆的存储"></a>堆的存储</h4><p>堆可以看成一个二叉树，所以可以考虑使用二叉树的表示方法来表示堆。但是因为堆中元素按照一定的优先顺序排列，因此可以使用更简单的方法——数组——来表示，这样可以节省子节点指针空间，并且可以快速访问每个节点。堆的数组表示其实就是堆层级遍历的结果。</p>
-<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>堆还可以看成一个完全二叉树，每次总是先填满上一层，再在下一层从左往右依次插入。堆的插入步骤：</p>
+          <h2 id="定义与特点"><a href="#定义与特点" class="headerlink" title="定义与特点"></a>定义与特点</h2><p>桥接（Bridge）模式的定义如下：将抽象与实现分离，使它们可以独立变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。</p>
+<p>桥接（Bridge）模式的优点是：<br>由于抽象与实现分离，所以扩展能力强；<br>其实现细节对客户透明。</p>
+<p>缺点是：由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，这增加了系统的理解与设计难度。</p>
+<h2 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h2><p>桥接（Bridge）模式包含以下主要角色。</p>
 <ol>
-<li>将新元素增加到堆的末尾</li>
-<li>按照优先顺序，将新元素与其父节点比较，如果新元素小于父节点则将两者交换位置。</li>
-<li>不断进行第2步操作，直到不需要交换新元素和父节点，或者达到堆顶</li>
-<li><p>最后通过得到一个最小堆</p>
-<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>堆的删除操作与插入操作相反，插入操作从下往上调整堆，而删除操作则从上往下调整堆。</p>
-</li>
-<li><p>删除堆顶元素（通常是将堆顶元素放置在数组的末尾）</p>
-</li>
-<li>比较左右子节点，将小的元素上调。</li>
-<li>不断进行步骤2，直到不需要调整或者调整到堆底。</li>
+<li>抽象化（Abstraction）角色：定义抽象类，并包含一个对实现化对象的引用。</li>
+<li>扩展抽象化（Refined    Abstraction）角色：是抽象化角色的子类，实现父类中的业务方法，并通过组合关系调用实现化角色中的业务方法。</li>
+<li>实现化（Implementor）角色：定义实现化角色的接口，供扩展抽象化角色调用。</li>
+<li>具体实现化（Concrete Implementor）角色：给出实现化角色接口的具体实现。</li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/2018-7/AVL Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/2018-7/AVL Tree/" itemprop="url">AVL Tree</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T15:15:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##二叉树<br>每个节点最多有两个子节点</p>
-<p>##二叉查找树<br>左节点小于父节点，父节点小于右节点<br>时间复杂度：logN &lt;= O(h) &lt;= N</p>
-<p>##自平衡二叉查找树<br>AVL树中任何节点的两个子树的高度最大差别为1，所以它也被称为高度平衡树。通过旋转维持平衡，降低时间复杂度。  </p>
-<p>###旋转轴节点<br>想要确定旋转轴节点需要先知道几个概念。</p>
-<ol>
-<li>平衡因子：二叉树某节点左右子树高度差(左减右为正还是右减左为正可自定义，下面的例子假定左减右为正)  </li>
-<li>最小不平衡子树：以距离插入节点最近的且平衡因子绝对值大于1的节点为根节点的子树  </li>
-<li>next larger：是指比某个node A 大的值，但是比所有其他大于node A的nodes 都要小；比较绕口，其实本质就是在所有比node A 大的集合中，key值最接近node A 的哪一个node  </li>
-<li>next smaller：同理next larger  </li>
-</ol>
-<p>旋转轴节点的确定，是由<em>最小不平衡子树</em>的<em>平衡因子</em>的正负，来决定找最小不平衡子树根节点的next smaller或者next larger。如果最小不平衡子树的平衡因子为正，其旋转轴节点为其root节点的next smaller；反之同理。  并且旋转轴节点是新子树的根节点。<br>可以试着用上面的方法确定以下二叉树的旋转轴节点：<br><img src="https://i.imgur.com/uU7mG3p.png" alt=""><br><img src="https://i.imgur.com/YnxXNhq.png" alt=""></p>
-<p>###旋转<br>旋转的目的是，通过降低左右子树的高度，来达到平衡。<br>首先我们需要知道，我们的旋转对象，或者说平衡目标，是什么？大家可能都知道了，上面我们已经多次提到了，就是<strong>最小不平衡子树</strong>。<br>因为自平衡二叉树查找树每一次插入新节点后，都要检查是否破坏了平衡，如果破坏了平衡都会通过旋转来保持平衡。所以说每一次的不平衡状态的平衡因子都只可能为-1或者1，也就是说我们只要解决了最小不平衡子树的不平衡，将其挂在其原有根节点的位置，也就是解决了整棵树的不平衡。 </p>
-<p>旋转分为两类，单旋转和双旋转。</p>
-<ol>
-<li>单旋转<br>当<strong>最小不平衡子树</strong>的平衡因子与其子树(新加节点路径上的子树)的平衡因子为同符号性质(同为正/负号)时单旋转。<br>如果不存在左孩子，左旋转会将父节点挂在旋转轴的左孩子处；如果存在左孩子，则需要和做孩子对比大小，如果比其左孩子小的话，就挂在其左孩子的左节点，如果比其左孩子大的话，就替换为其孩子的位置，原来的左孩子挂在新的做孩子的左节点。右旋转的操作同理。</li>
-<li>双旋转<br>当<strong>最小不平衡子树</strong>的平衡因子与其子树(新加节点路径上的子树)的平衡因子为异符号性质(正负/负正)时双旋转。<br>双旋转就是需要旋转两次，LR或者RL。<br>以下是一个双旋转RL的过程：<br><img src="https://i.imgur.com/VcWpsRL.jpg" alt=""></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/2018-5/popyy-learn-term1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="baiyang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="永远的万事屋">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/08/2018-5/popyy-learn-term1/" itemprop="url">学习小组第一期总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T21:05:11+08:00">
-                2018-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>refactoring（重构）是我们整天挂在嘴边的，也有很多我们自己写代码的技巧，而<strong>Refactoring improving the Design of Existing code</strong>这本书就是把我们那些技巧总结整理下来，归纳为方式方法，这本书里基本囊括了我们平时所有重构的技巧，看这本书当中我们会惊叹原来我们平时使用的这些在很早之前就有人整理出来了，大神就是大神。<br>以下我就列举几点典型的方法：</p>
-<ol>
-<li>Extract Method<br>额外的函数适合于重构过长的函数，把其分解成多个独立功能的函数，函数功能单一使人更容易理解，以及修改才更不容易出错。</li>
-<li>Move Method<br>移动函数适合于逻辑的理解，本质上一个函数式可以放在任何位置的，但我们要去思考这个函数的功能，以及这个函数放在什么位置更易于理解。</li>
-<li>Replace Temp With Query<br>临时变量往往引发问题，他们会导致大量参数被传来传去，这就导致我们有可能会改变变量的值，而这种改变通常是错误的，尤其是在很长的函数体内。</li>
-</ol>
-<p>借用书中的话来描述重构的意义：<strong>任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/08/2018-5/popyy-learn-term1/#more" rel="contents">
+            <a class="btn" href="/2020/06/12/2020-6/桥接模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1501,7 +1058,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/2018-4/docker-learn/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/11/2020-6/结构型模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="baiyang">
@@ -1520,7 +1077,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/27/2018-4/docker-learn/" itemprop="url">docker学习笔记</a></h1>
+                <a class="post-title-link" href="/2020/06/11/2020-6/结构型模式/" itemprop="url">结构性模式</a></h1>
         
 
         <div class="post-meta">
@@ -1532,8 +1089,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-27T11:23:11+08:00">
-                2018-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-11T10:05:58+08:00">
+                2020-06-11
               </time>
             
 
@@ -1594,10 +1151,34 @@
       
         
           
-            <p>docker image ls  //列出本地镜像<br>docker image rm ${image id} //删除本地镜像<br>docker build -t tomcat .  //. 表示Dockerfile在当前文件夹下，也可使用绝对路径（/path/to/Dockerfile）来表示<br>docker run –name mytomcat -i -t -d tomcat:latest  //使用镜像启动docker容器<br>docker run -i -t -d -p ${host port}:${container port} –name mytomcat tomcat:latest  //docker端口映射<br>//docker是运行在linux环境之上的，所以在windows下使用是运行在虚拟机上的，这里的host（宿主）只的是vm<br>${host ip}:${host port} //访问docker里运行的tomcat<br>docker restart ${container name} //重启容器<br>docker attach ${container id} //<br>docker ps // 查看所有正在运行容器<br>docker stop containerId // containerId 是容器的ID</p>
-<p>docker ps -a // 查看所有容器<br>docker ps -a -q // 查看所有容器ID</p>
-<p>docker stop $(docker ps -a -q) //  stop停止所有容器<br>docker  rm $(docker ps -a -q) //   remove删除所有容器</p>
-<p>docker inspect ${container id}  //获取容器/镜像的元数据<br>docker inspect ${container id} | grep IPAddress  //查看元数据，过滤ip</p>
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>结构型模式描述如何将类或对象按某种布局组成更大的结构。<strong>它分为类结构型模式和对象结构型模式，前者采用继承机制来组织接口和类，后者釆用组合或聚合来组合对象</strong>。</p>
+<p>由于组合关系或聚合关系比继承关系耦合度低，满足“合成复用原则”，所以对象结构型模式比类结构型模式具有更大的灵活性。</p>
+<h2 id="代理模式与适配器模式"><a href="#代理模式与适配器模式" class="headerlink" title="代理模式与适配器模式"></a>代理模式与适配器模式</h2><h3 id="代理模式的结构"><a href="#代理模式的结构" class="headerlink" title="代理模式的结构"></a>代理模式的结构</h3><p>代理模式的主要角色如下。</p>
+<ol>
+<li>抽象主题（Subject）类：通过接口或抽象类声明真实主题和代理对象实现的业务方法。</li>
+<li>真实主题（Real Subject）类：实现了抽象主题中的具体业务，是代理对象所代表的真实对象，是最终要引用的对象。</li>
+<li>代理（Proxy）类：提供了与真实主题相同的接口，其内部含有对真实主题的引用，它可以访问、控制或扩展真实主题的功能。</li>
+</ol>
+<h3 id="适配器模式的结构"><a href="#适配器模式的结构" class="headerlink" title="适配器模式的结构"></a>适配器模式的结构</h3><p>适配器模式（Adapter）包含以下主要角色。</p>
+<ol>
+<li>目标（Target）接口：当前系统业务所期待的接口，它可以是抽象类或接口。</li>
+<li>适配者（Adaptee）类：它是被访问和适配的现存组件库中的组件接口。</li>
+<li>适配器（Adapter）类：它是一个转换器，通过继承或引用适配者的对象，把适配者接口转换成目标接口，让客户按目标接口的格式访问适配者。</li>
+</ol>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p><img src="https://s1.ax1x.com/2020/06/11/tH74iD.png" alt=""><br>通过对比发现这两种模式都有三个角色，只考虑对象适配器的话，写出的代码结构类似如下：  </p>
+<pre><code>class ObjectAdapter implements Target
+{
+    private Adaptee adaptee;
+    public ObjectAdapter(Adaptee adaptee)
+    {
+        this.adaptee=adaptee;
+    }
+    public void request()
+    {
+        adaptee.specificRequest();
+    }
+}
+</code></pre><p>都是让Proxy或者Adapter类实现客户端真正调用的接口（Target或者Subject）。我个人理解，适配器和代理模式在使用上没有太大的差别，根本的区别是认知上的处理问题的场景。或者是，代理模式一般是不需要做额外工作的（只有类似加日志这种操作），而适配器模式是需要做适配工作的。</p>
 
           
         
@@ -1646,7 +1227,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/15/2018-4/closure/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/11/2020-6/设计模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="baiyang">
@@ -1665,7 +1246,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/15/2018-4/closure/" itemprop="url">闭包的理解</a></h1>
+                <a class="post-title-link" href="/2020/06/11/2020-6/设计模式/" itemprop="url">设计模式概述</a></h1>
         
 
         <div class="post-meta">
@@ -1677,8 +1258,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T16:53:11+08:00">
-                2018-04-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-11T09:37:18+08:00">
+                2020-06-11
               </time>
             
 
@@ -1738,18 +1319,510 @@
 
       
         
-          <p>&emsp;&emsp;今天被小伙伴问到了闭包，虽然自己原来也看到一些关于闭包的文章，但是发现自己什么都说不出，所以又到了学习的时刻了。<br>&emsp;&emsp;首先先去百科了下闭包的概念：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">闭包就是能够读取其他函数内部变量的函数。由于在javascript中，只有函数内部的子函数才能读取局部变量，所以闭包可以理解成“定义在一个函数内部的函数“。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。</span><br></pre></td></tr></table></figure></p>
-<p>咱们将这段话拆分一下：</p>
+          
+            <h2 id="根据目的分类"><a href="#根据目的分类" class="headerlink" title="根据目的分类"></a>根据目的分类</h2><p>根据模式是用来完成什么工作来划分，这种方式可分为创建型模式、结构型模式和行为型模式 3 种。</p>
 <ol>
-<li>能到读取到其他函数内部变量的函数。<br>首先闭包也是一个“函数”，然后才是有“能够读取到其他函数变量”的功能。</li>
-<li>javascript中理解成“定义在一个函数内部的函数”</li>
-<li>将函数内部和外部连接起来的桥梁</li>
+<li>创建型模式：用于描述“怎样创建对象”，它的主要特点是“将对象的创建与使用分离”。GoF 中提供了单例、原型、工厂方法、抽象工厂、建造者等 5 种创建型模式。</li>
+<li>结构型模式：用于描述如何将类或对象按某种布局组成更大的结构，GoF 中提供了代理、适配器、桥接、装饰、外观、享元、组合等 7 种结构型模式。</li>
+<li>行为型模式：用于描述类或对象之间怎样相互协作共同完成单个对象都无法单独完成的任务，以及怎样分配职责。GoF 中提供了模板方法、策略、命令、职责链、状态、观察者、中介者、迭代器、访问者、备忘录、解释器等 11 种行为型模式。</li>
 </ol>
-<hr>
-<p>将话分成了三部分，果然理解起来就容易多了。我在网上也找到了很多介绍闭包的文章，例如<a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html</a>，但无奈本人是java程序员理解起来还是不够清晰，所以还是谢了自己的java理解版本，如下：<br>
+<h2 id="根据业务分类"><a href="#根据业务分类" class="headerlink" title="根据业务分类"></a>根据业务分类</h2><p>根据模式是主要用于类上还是主要用于对象上来分，这种方式可分为类模式和对象模式两种。</p>
+<ol>
+<li>类模式：用于处理类与子类之间的关系，这些关系通过继承来建立，是静态的，在编译时刻便确定下来了。GoF中的工厂方法、（类）适配器、模板方法、解释器属于该模式。</li>
+<li>对象模式：用于处理对象之间的关系，这些关系可以通过组合或聚合来实现，在运行时刻是可以变化的，更具动态性。GoF 中除了以上 4 种，其他的都是对象模式。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/10/2020-6/创建型模式 工厂模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/10/2020-6/创建型模式 工厂模式/" itemprop="url">创建型模式 工厂模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-10T10:36:08+08:00">
+                2020-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><p>创建型模式的主要关注点是“怎样创建对象？”，关注点分离原则，它的<strong>主要特点是“将对象的创建与使用分离”</strong>。这样可以降低系统的耦合度，使用者不需要关注对象的创建细节，对象的创建由相关的工厂来完成。创建型模式由两个主导思想构成。一是将系统使用的具体类封装起来，二是隐藏这些具体类的实例创建和结合的方式。</p>
+<p>创建型模式分为以下几种。</p>
+<ul>
+<li>单例（Singleton）模式：某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。</li>
+<li>原型（Prototype）模式：将一个对象作为原型，通过对其进行复制而克隆出多个和原型类似的新实例，java的clone就是原型模式的一种实现。</li>
+<li>工厂方法（FactoryMethod）模式：定义一个用于创建产品的接口，由子类决定生产什么产品。<br>抽象工厂（AbstractFactory）模式：提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。</li>
+<li>建造者（Builder）模式：将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。</li>
+</ul>
+<p>以上 5 种创建型模式，除了工厂方法模式属于<strong>类创建型模式</strong>，其他的全部属于<strong>对象创建型模式</strong>。 </p>
+<h2 id="类创建型模式与对象创建型模式"><a href="#类创建型模式与对象创建型模式" class="headerlink" title="类创建型模式与对象创建型模式"></a>类创建型模式与对象创建型模式</h2><p>创建型模式又分为对象创建型模式和类创建型模式。对象创建型模式处理对象的创建，类创建型模式处理类的创建。详细地说，<strong>对象创建型模式把对象创建的一部分推迟到另一个对象中，而类创建型模式将它对象的创建推迟到子类中。</strong></p>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><h3 id="定义与特点"><a href="#定义与特点" class="headerlink" title="定义与特点"></a>定义与特点</h3><p>工厂方法（FactoryMethod）模式的定义：定义一个创建产品对象的工厂接口，将产品对象的实际创建工作推迟到具体子工厂类当中。这满足创建型模式中所要求的“创建与使用相分离”的特点。  </p>
+<p>工厂方法模式的主要优点有：</p>
+<ul>
+<li>用户只需要知道具体工厂的名称就可得到所要的产品，无须知道产品的具体创建过程；</li>
+<li>在系统增加新的产品时只需要添加具体产品类和对应的具体工厂类，无须对原工厂进行任何修改，满足开闭原则；</li>
+</ul>
+<p>其缺点是：每增加一个产品就要增加一个具体产品类和一个对应的具体工厂类，这增加了系统的复杂度</p>
+<h3 id="结构与实现"><a href="#结构与实现" class="headerlink" title="结构与实现"></a>结构与实现</h3><p>工厂方法模式的主要角色如下。  </p>
+<ol>
+<li>抽象工厂（Abstract Factory）：提供了创建产品的接口，调用者通过它访问具体工厂的工厂方法 newProduct() 来创建产品。</li>
+<li>具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。</li>
+<li>抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能。</li>
+<li>具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间一一对应。</li>
+</ol>
+<h3 id="与spring的结合"><a href="#与spring的结合" class="headerlink" title="与spring的结合"></a>与spring的结合</h3><p>在spring中我们配置的xml或者使用spring框架写的某个实现了抽象工厂的类，都是工厂方法模式的使用场景。最典型的场景，配置DBResource。</p>
+<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><h3 id="定义与特点-1"><a href="#定义与特点-1" class="headerlink" title="定义与特点"></a>定义与特点</h3><p>抽象工厂（AbstractFactory）模式的定义：是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。</p>
+<p>抽象工厂模式是工厂方法模式的升级版本，工厂方法模式只生产一个等级的产品，而抽象工厂模式可生产多个等级的产品。</p>
+<p>使用抽象工厂模式一般要满足以下条件。</p>
+<ul>
+<li>系统中有多个产品族，每个具体工厂创建同一族但属于不同等级结构的产品。</li>
+<li>系统一次只可能消费其中某一族产品，即同族的产品一起使用。</li>
+</ul>
+<p>抽象工厂模式除了具有工厂方法模式的优点外，其他主要优点如下。<br>可以在类的内部对产品族中相关联的多等级产品共同管理，而不必专门引入多个新的类来进行管理。<br>当增加一个新的产品族时不需要修改原代码，满足开闭原则。</p>
+<p>其缺点是：当产品族中需要增加一个新的产品时，所有的工厂类都需要进行修改。</p>
+<h3 id="结构与实现-1"><a href="#结构与实现-1" class="headerlink" title="结构与实现"></a>结构与实现</h3><p>抽象工厂模式同工厂方法模式一样，也是由抽象工厂、具体工厂、抽象产品和具体产品等 4 个要素构成，但抽象工厂中方法个数不同，抽象产品的个数也不同。现在我们来分析其基本结构和实现方法。</p>
+<p>抽象工厂模式的主要角色如下。</p>
+<ol>
+<li>抽象工厂（Abstract Factory）：提供了创建产品的接口，它包含多个创建产品的方法 newProduct()，可以创建多个不同等级的产品。</li>
+<li>具体工厂（Concrete Factory）：主要是实现抽象工厂中的多个抽象方法，完成具体产品的创建。</li>
+<li>抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能，抽象工厂模式有多个抽象产品。</li>
+<li>具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它 同具体工厂之间是多对一的关系。</li>
+</ol>
+<h3 id="与工厂方法模式的区别"><a href="#与工厂方法模式的区别" class="headerlink" title="与工厂方法模式的区别"></a>与工厂方法模式的区别</h3><p>抽象工厂模式适用于创建一组（多种）对象的场景，工厂方法模式使用于创建一种对象的场景，简单来说，工厂方法模式有一个创建对象的方法，抽象工厂模式有多个创建不同对象的方法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/09/2020-6/依赖倒置原则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/09/2020-6/依赖倒置原则/" itemprop="url">依赖倒置、面向接口、控制反转、依赖注入</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-09T10:45:08+08:00">
+                2020-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="依赖倒置的定义"><a href="#依赖倒置的定义" class="headerlink" title="依赖倒置的定义"></a>依赖倒置的定义</h2><p>依赖倒置原则的原始定义为：高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象（High level modules shouldnot depend upon low level modules.Both should depend upon abstractions.Abstractions should not depend upon details. Details should depend upon abstractions）。<strong>其核心思想是：要面向接口编程，不要面向实现编程</strong>（之前比较疑惑面向接口编程与依赖倒置的关系，这句话算是解惑了）。  </p>
+<h2 id="傻傻分不清楚之总结"><a href="#傻傻分不清楚之总结" class="headerlink" title="傻傻分不清楚之总结"></a>傻傻分不清楚之总结</h2><ol>
+<li>依赖倒置是面向对象开发领域中的软件设计原则，它倡导上层模块不依赖于底层模块，抽象不依赖细节。</li>
+<li>依赖反转是遵守依赖倒置这个原则而提出来的一种设计模式，它引入了 IoC 容器的概念。</li>
+<li>依赖注入是为了实现依赖反转的一种手段之一。</li>
+</ol>
+<p>所以，IOC是DIP的继承，DI是IOC的实现，如下所示：<br><img src="https://s1.ax1x.com/2020/06/10/tomcWj.png" alt=""></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>7 种设计原则是软件设计模式必须尽量遵循的原则，各种原则要求的侧重点不同。其中，开闭原则是总纲，它告诉我们要对扩展开放，对修改关闭；里氏替换原则告诉我们不要破坏继承体系；依赖倒置原则告诉我们要面向接口编程；单一职责原则告诉我们实现类要职责单一；接口隔离原则告诉我们在设计接口的时候要精简单一；迪米特法则告诉我们要降低耦合度；合成复用原则告诉我们要优先使用组合或者聚合关系复用，少用继承关系复用。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/08/2020-6/系统设计文档模板/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="baiyang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="永远的万事屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/08/2020-6/系统设计文档模板/" itemprop="url">系统设计文档模板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-08T14:50:22+08:00">
+                2020-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>此文章不是我写的，是来自于我之前的团队的，主要是我们当时的leader@闫华做的，微信搜索<strong>codeasy</strong>可以关注他的公众号。个人觉得此模板还是很不错的，按照这个模板既可以锻炼大家写设计的能力，又能让大家对自己的系统产生一定的思考，所以想要给大家分享出来。因为是维护在内网，要不然我只需要分享一个链接就好了。。。以下是内容：</p>
+<h2 id="背景简介"><a href="#背景简介" class="headerlink" title="背景简介"></a>背景简介</h2><p><strong>此部分必须要有。</strong><br>回答以下内容：</p>
+<ul>
+<li>这个系统是关于什么的，职责是什么</li>
+<li>给谁使用</li>
+</ul>
+<p>但不限于以上这些内容。这部分非常重要但要高度凝练，要简洁。目的是提供必要的背景知识，以便读者理解下面章节的内容。</p>
+<p>这部分可以与产品经理一起，紧密协作编写。</p>
+<h2 id="领域模型"><a href="#领域模型" class="headerlink" title="领域模型"></a>领域模型</h2><p><strong>此部分必须要有。</strong></p>
+<p>领域模型是对业务的一个抽象建模，可以用粗类度的类图（类和类的关系）来表示，并加上必要的名词解释。</p>
+<blockquote>
+<p>如果领域对象特别多，有必要建立分组。如何分而治之，可以参考DDD的界限上下文的分析方法。</p>
+</blockquote>
+<p>领域模型是和技术无关的，所以，领域模型不等同于表设计，这里不应该出现表设计相关的内容。</p>
+<p>领域模型非常重要，没有特殊情况，本部分必须要有。特殊情况请说明。</p>
+<p>这部分可以与产品经理一起，紧密协作编写。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/15/2018-4/closure/#more" rel="contents">
+            <a class="btn" href="/2020/06/08/2020-6/系统设计文档模板/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1791,7 +1864,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1837,7 +1910,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1859,7 +1932,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
